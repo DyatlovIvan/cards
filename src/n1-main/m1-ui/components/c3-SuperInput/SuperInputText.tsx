@@ -30,10 +30,11 @@ export const SuperInputText = ({type,onChange,onChangeText,
 
     return(
         <>
+
             <input
                 type={'text'}
                 onChange={onChangeCallback}
-                // onKeyPress={onKeyPressCallback}
+                //onKeyPress={onKeyPressCallback}
                 className={finalInputClassName}
                 {...props}
             />
