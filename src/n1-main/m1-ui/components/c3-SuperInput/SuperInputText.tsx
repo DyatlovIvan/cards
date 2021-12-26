@@ -1,4 +1,4 @@
-import {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEventHandler} from "react";
+import {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from "react";
 import s from './SuperInputText.module.css'
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -20,10 +20,10 @@ export const SuperInputText = ({type,onChange,onChangeText,
 
         onChangeText && onChangeText(e.currentTarget.value)
     }
-    const onKeyPressCallback = (e: KeyboardEventHandler<HTMLInputElement>) => {
-        // onKeyPress && onKeyPress(e);
-        //
-        // onEnter && e.key === 'Enter' && onEnter()
+    const onKeyPressCallback = (e :KeyboardEvent<HTMLInputElement>) => {
+        onKeyPress && onKeyPress(e);
+
+        onEnter && e.key === 'Enter' && onEnter()
     }
     const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ''}`
     const finalInputClassName = `${s.input} ${error ? s.errorInput:s.superInput}`
@@ -34,9 +34,8 @@ export const SuperInputText = ({type,onChange,onChangeText,
             <input
                 type={'text'}
                 onChange={onChangeCallback}
-                //onKeyPress={onKeyPressCallback}
+               onKeyPress={onKeyPressCallback}
                 className={finalInputClassName}
-                {...props}
             />
             {error && <span className={finalSpanClassName}>{error}</span>}
         </>

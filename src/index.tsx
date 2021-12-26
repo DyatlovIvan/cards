@@ -8,13 +8,13 @@ import store from "./n1-main/m2-bll/store";
 import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
-    // <BrowserRouter>
-    //     <Provider store={store}>
+    <BrowserRouter>
+         <Provider store={store}>
             <React.StrictMode>
                 <App/>
-            </React.StrictMode>,
-    //     </Provider>
-    // </BrowserRouter>,
+            </React.StrictMode>
+         </Provider>
+     </BrowserRouter>,
     document.getElementById('root')
 );
 
