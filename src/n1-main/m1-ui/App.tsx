@@ -10,7 +10,7 @@ import {Error} from "../../n2-features/f3-error/error";
 import {NewPassword} from "../../n2-features/f4-password/p1-newPassword/newPassword";
 import {RepairPassword} from "../../n2-features/f4-password/p2-repairPassword/repairPassword";
 
-
+//chek merge
 const App = () => {
     return (
         <div className="App">
