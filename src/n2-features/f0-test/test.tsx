@@ -1,7 +1,7 @@
 export const Test = () =>{
     return(
         <div>
-            Test
+            Test2
         </div>
     )
 }
