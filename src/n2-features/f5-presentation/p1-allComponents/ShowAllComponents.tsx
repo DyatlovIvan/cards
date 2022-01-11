@@ -15,7 +15,7 @@ export const ShowAllComponents = () => {
                 <SuperCheckbox/>
             </div>
             <div>
-                <SuperInputText/>
+                <SuperInputText value = {'some text'}/>
             </div>
         </div>
     )

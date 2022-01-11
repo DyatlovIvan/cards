@@ -1,6 +1,6 @@
 import axios from "axios"
 
-type LoginParamsType = {
+export type LoginParamsType = {
     email: string
     password: string
     rememberMe: boolean
@@ -24,6 +24,9 @@ const instance = axios.create({
 export const authAPI = {
     login(data: LoginParamsType) {
         return instance.post('/auth/login',data)
+    },
+    me(){
+        return instance.post('/auth/me',{})
     }
 
 }
