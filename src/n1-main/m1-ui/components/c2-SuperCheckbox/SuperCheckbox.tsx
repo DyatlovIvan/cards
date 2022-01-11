@@ -23,6 +23,7 @@ export const SuperCheckbox = ({
         <label>
             <input
                 type={'checkbox'}
+                checked = {checked}
                 onChange={onChangeCallback}
                 className={finalInputClassName}
                 {...props}
