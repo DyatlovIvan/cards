@@ -11,7 +11,7 @@ import {NewPassword} from "../../n2-features/f4-password/p1-newPassword/newPassw
 import {RepairPassword} from "../../n2-features/f4-password/p2-repairPassword/repairPassword";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../m2-bll/store";
-import {authMe} from "../../n2-features/f1-auth/a1-login/loginReduser";
+import {isAuth} from "../../n2-features/f1-auth/a1-login/loginReduser";
 
 
 
@@ -21,27 +21,18 @@ const App = () => {
     const isLoggedIn = useSelector<RootStoreType,boolean>(state => state.Login.isLoggedIn)
     const isInitializedId = useSelector<RootStoreType,string|null>(state =>state.Profile._id)
     const navigate = useNavigate()
+
+   // dispatch(isAuth())
     useEffect(()=>{
-        dispatch(authMe())
-        if(isLoggedIn===false){
-            navigate('/login')
-        }else{
+       if (isInitializedId===''){
+           navigate('/login')
+       }
+    },[isInitializedId])
+
+    useEffect(() =>{
+        if(isLoggedIn){
             navigate('/profile')
-        }
-    },[isLoggedIn])
-    // useEffect(()=>{
-    //    if (isInitializedId===''){
-    //        dispatch(authMe())
-    //    }
-    //    if (isInitializedId===''){
-    //        navigate('/login')
-    //    }
-    // },[isInitializedId])
-    //
-    // useEffect(() =>{
-    //     if(isLoggedIn){
-    //         navigate('/profile')
-    //     }},[isLoggedIn])
+        }},[isLoggedIn])
 
     return (
         <div className="App">
@@ -54,7 +45,6 @@ const App = () => {
                 <Route path={'/newPassword'} element={<NewPassword/>}/>
                 <Route path={'/repairPassword'} element={<RepairPassword/>}/>
                 <Route path={'/test'} element={<ShowAllComponents/>}/>
-
             </Routes>
 
         </div>

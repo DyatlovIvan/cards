@@ -38,10 +38,9 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
         handlerAppError(error, dispatch);
         dispatch(setAppStatus('failed'))
     }
-
 }
 
-export const authMe = () => async (dispatch: Dispatch) => {
+export const isAuth = () => async (dispatch: Dispatch) => {
     try {
         const res = await authAPI.me()
         dispatch(login(res.data))
