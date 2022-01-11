@@ -6,9 +6,9 @@ export const ShowAllComponents = () => {
     return (
         <div>
             <div>
-                <SuperButton>default</SuperButton>
-                <SuperButton red>red</SuperButton>
-                <SuperButton disabled>disabled</SuperButton>
+                <SuperButton value={'default'}/>
+                <SuperButton value={'red'} red/>
+                <SuperButton value={'disabled'} disabled/>
             </div>
             <div>
                 <SuperCheckbox>some text</SuperCheckbox>
