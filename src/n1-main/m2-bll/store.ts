@@ -6,9 +6,11 @@ import {ProfileReducer} from "../../n2-features/f2-profile/profileReducer";
 import {ErrorReducer} from "../../n2-features/f3-error/errorReducer";
 import {NewPasswordReducer} from "../../n2-features/f4-password/p1-newPassword/newPasswordreducer";
 import {RepairPasswordReducer} from "../../n2-features/f4-password/p2-repairPassword/repairPasswordreducer";
+import {AppReducer} from "./AppReducer";
 
 
 let reducer = combineReducers({
+    App:AppReducer,
     Login:LoginReducer,
     Register:RegisterReducer,
     Profile:ProfileReducer,

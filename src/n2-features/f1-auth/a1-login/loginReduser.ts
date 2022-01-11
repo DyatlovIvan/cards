@@ -1,79 +1,54 @@
 import {authAPI, LoginParamsType} from "../../../n1-main/m3-dal/api";
 import {Dispatch} from "redux";
-import {useNavigate} from "react-router-dom";
+import {handlerAppError} from "../../../n1-main/m2-bll/helpers/helpers";
+import {setAppError, setAppStatus} from "../../../n1-main/m2-bll/AppReducer";
+import {login} from "../../f2-profile/profileReducer";
 
 type InitialStateType = {
-    _id: string
-    email: string
-    name: string
-    avatar?: string
-    publicCardPacksCount: number
-    created: Date
-    updated: Date
-    isAdmin: boolean
-    verified: boolean
-    rememberMe: boolean
-    error?: string
     isLoggedIn:boolean
 }
 const initialState: InitialStateType = {
-    _id: '',
-    email: '',
-    name: '',
-    avatar: '',
-    publicCardPacksCount: 0,
-    created: new Date(),
-    updated: new Date(),
-    isAdmin: false,
-    verified: false,
-    rememberMe: false,
-    error: '',
     isLoggedIn:false
-
-
 }
 export const LoginReducer = (state: InitialStateType = initialState, action: MainType): InitialStateType => {
     switch (action.type) {
-        case "AUTH/LOGIN":
-            return {...state, _id : action.data._id, email : action.data.email, name : action.data.name,
-            avatar : action.data.avatar, publicCardPacksCount: action.data.publicCardPacksCount,
-            created : action.data.created , updated : action.data.updated, isAdmin : action.data.isAdmin,
-            verified : action.data.verified, rememberMe : action.data.rememberMe,
-            error : action.data.error, isLoggedIn: true}
-        case "AUTH/LOGIN_ERROR":
-            return {...state,error:action.error}
+        case "AUTH/SET_IS_LOGGED_IN":
+            return {...state, isLoggedIn: true}
         default:
             return state
     }
 }
 
-type MainType = ReturnType<typeof login> | ReturnType<typeof setError>
+type MainType = ReturnType<typeof setIsLoggedIn>
 
-const login = (data: InitialStateType) => ({
-    type: 'AUTH/LOGIN', data
-}) as const
-const setError = (error: string) => ({
-    type: 'AUTH/LOGIN_ERROR', error
+export const setIsLoggedIn = (data: InitialStateType) => ({
+    type: 'AUTH/SET_IS_LOGGED_IN', data
 }) as const
 
-export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
-    authAPI.login(data)
-        .then(res => {
-            dispatch(login(res.data))
 
-        })
-        .catch(rej => {
-            dispatch(setError(rej.response.data.error))
-        })
+export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => {
+    try{
+        dispatch(setAppError(null))
+        dispatch(setAppStatus('loading'));
+        const res = await authAPI.login(data)
+        dispatch(login(res.data))
+        dispatch(setIsLoggedIn(res.data))
+        dispatch(setAppStatus('succeeded'))
+    }catch (error){
+        handlerAppError(error, dispatch);
+        dispatch(setAppStatus('failed'))
+    }
+
 }
 
-// export const authMe = () => (dispatch: Dispatch) => {
-//
-//     authAPI.me()
-//         .then(res => {
-//             debugger
-//         })
-//         .catch(rej => {
-//             debugger
-//         })
-// }
+export const authMe = () => async (dispatch: Dispatch) => {
+    try {
+        const res = await authAPI.me()
+        dispatch(login(res.data))
+        dispatch(setIsLoggedIn(res.data))
+    }catch(error){
+        handlerAppError(error, dispatch)
+        dispatch(setAppStatus('failed'))
+    }
+
+}
