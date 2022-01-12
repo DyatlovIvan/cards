@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI, RegisterParamsType} from "../../../n1-main/m3-dal/api";
+import {authAPI, RegisterParamsType} from "../dal/api";
 
 type InitialStateType = {
     isError: null | string

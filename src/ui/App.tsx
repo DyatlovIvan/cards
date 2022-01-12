@@ -1,17 +1,17 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import {ShowAllComponents} from "../../n2-features/f5-presentation/p1-allComponents/ShowAllComponents";
+import {ShowAllComponents} from "../n2-features/f5-presentation/p1-allComponents/ShowAllComponents";
 import {Header} from "./header/header";
 import {Route, Routes, useNavigate} from "react-router-dom";
-import {Login} from "../../n2-features/f1-auth/a1-login/login";
-import {Register} from "../../n2-features/f1-auth/a2-register/register";
-import {Profile} from "../../n2-features/f2-profile/profile";
-import {Error} from "../../n2-features/f3-error/error";
-import {NewPassword} from "../../n2-features/f4-password/p1-newPassword/newPassword";
-import {RepairPassword} from "../../n2-features/f4-password/p2-repairPassword/repairPassword";
+import {Login} from "./auth/login/login";
+import {Register} from "./auth/register/register";
+import {Profile} from "./profile/profile";
+import {Error} from "./error/error";
+import {NewPassword} from "./password/newPassword/newPassword";
+import {RepairPassword} from "./password/repairPassword/repairPassword";
 import {useDispatch, useSelector} from "react-redux";
-import {RootStoreType} from "../m2-bll/store";
-import {isAuth} from "../../n2-features/f1-auth/a1-login/loginReduser";
+import {RootStoreType} from "../bll/store";
+import {isAuth} from "../bll/loginReduser";
 
 
 //chek merge

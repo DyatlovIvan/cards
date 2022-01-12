@@ -1,8 +1,8 @@
-import {authAPI, LoginParamsType} from "../../../n1-main/m3-dal/api";
+import {authAPI, LoginParamsType} from "../dal/api";
 import {Dispatch} from "redux";
-import {handlerAppError} from "../../../n1-main/m2-bll/helpers/helpers";
-import {setAppError, setAppStatus, setIsInitialized} from "../../../n1-main/m2-bll/AppReducer";
-import {login} from "../../f2-profile/profileReducer";
+import {handlerAppError} from "./helpers/helpers";
+import {setAppError, setAppStatus, setIsInitialized} from "./AppReducer";
+import {login} from "./profileReducer";
 
 type InitialStateType = {
     isLoggedIn:boolean

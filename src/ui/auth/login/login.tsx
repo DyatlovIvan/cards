@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import {SuperCheckbox} from "../../../n1-main/m1-ui/components/c2-SuperCheckbox/SuperCheckbox";
+import {SuperCheckbox} from "../../components/c2-SuperCheckbox/SuperCheckbox";
 import {useDispatch, useSelector} from "react-redux";
-import {RootStoreType} from "../../../n1-main/m2-bll/store";
-import {loginTC} from "./loginReduser";
+import {RootStoreType} from "../../../bll/store";
+import {loginTC} from "../../../bll/loginReduser";
 import {NavLink} from "react-router-dom";
-import {SuperInputText} from "../../../n1-main/m1-ui/components/c3-SuperInput/SuperInputText";
+import {SuperInputText} from "../../components/c3-SuperInput/SuperInputText";
 import style from "./login.module.css"
-import {RequestStatusType} from "../../../n1-main/m2-bll/AppReducer";
+import {RequestStatusType} from "../../../bll/AppReducer";
 
 
 export const Login = () => {

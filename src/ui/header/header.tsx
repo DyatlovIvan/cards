@@ -1,8 +1,8 @@
 import {NavLink} from "react-router-dom";
 import style from "./header.module.css"
 import {useDispatch, useSelector} from "react-redux";
-import {RootStoreType} from "../../m2-bll/store";
-import {logoutTC} from "../../../n2-features/f1-auth/a1-login/loginReduser";
+import {RootStoreType} from "../../bll/store";
+import {logoutTC} from "../../bll/loginReduser";
 
 export const Header = () =>{
     const dispatch = useDispatch()
