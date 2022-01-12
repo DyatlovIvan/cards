@@ -1,6 +1,6 @@
 import axios from "axios"
 
-type LoginParamsType = {
+export type LoginParamsType = {
     email: string
     password: string
     rememberMe: boolean
@@ -27,6 +27,13 @@ export const authAPI = {
     },
     register(data: RegisterParamsType) {
         return instance.post('/auth/register', data)
+        return instance.post('/auth/login',data)
+    },
+    logout(){
+        return instance.delete('/auth/me',{})
+    },
+    me(){
+        return instance.post('/auth/me',{})
     }
 
 }
