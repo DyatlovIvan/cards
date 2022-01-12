@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import {ShowAllComponents} from "../n2-features/f5-presentation/p1-allComponents/ShowAllComponents";
 import {Header} from "./header/header";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import {Login} from "./auth/login/login";
@@ -52,7 +51,6 @@ const App = () => {
                 <Route path={'/error'} element={<Error/>}/>
                 <Route path={'/newPassword'} element={<NewPassword/>}/>
                 <Route path={'/repairPassword'} element={<RepairPassword/>}/>
-                <Route path={'/test'} element={<ShowAllComponents/>}/>
             </Routes>
 
         </div>

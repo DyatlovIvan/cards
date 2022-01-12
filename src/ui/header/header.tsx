@@ -18,8 +18,6 @@ export const Header = () =>{
             <NavLink className={style.link} to={`/error`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Error</NavLink>
             <NavLink className={style.link} to={`/newPassword`} style = {(params)=>({color:params.isActive?'coral':'black'})}>New password</NavLink>
             <NavLink className={style.link} to={`/repairPassword`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Repair password</NavLink>
-            <NavLink className={style.link} to={`/test`} style = {(params)=>({color:params.isActive?'coral':'black'})}>test</NavLink>
-
         </div>
     )
 }
