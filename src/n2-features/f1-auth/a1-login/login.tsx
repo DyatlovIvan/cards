@@ -11,8 +11,8 @@ import {RequestStatusType} from "../../../n1-main/m2-bll/AppReducer";
 
 export const Login = () => {
     const dispatch = useDispatch()
-    const error = useSelector<RootStoreType,string|null>(state => state.App.error)
-    const status = useSelector<RootStoreType,RequestStatusType>(state => state.App.status)
+    const error = useSelector<RootStoreType, string | null>(state => state.App.error)
+    const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
     const [email, setEmail] = useState<string>('nya-admin@nya.nya')
     const [password, setPassword] = useState<string>('1qazxcvBG')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
@@ -20,28 +20,25 @@ export const Login = () => {
     const singInHandler = () => {
         dispatch(loginTC({email, password, rememberMe}))
     }
+
     return (
         <div>
-            LOGIN
+            {status === 'loading' && <span>{status}</span>}
+            {error && <span className={style.error}>{error}</span>}
+            <SuperInputText value={email} onChangeText={setEmail}/>
+            <SuperInputText value={password} onChangeText={setPassword}/>
+
+            <SuperCheckbox onChangeChecked={setRememberMe}
+                           checked={rememberMe}>
+                some text
+            </SuperCheckbox>
+
             <div>
-                {status==='loading' && <span>{status}</span>}
-                {error && <span className={style.error}>{error}</span>}
-                <SuperInputText value={email} onChangeText={setEmail}/>
-                <SuperInputText value={password} onChangeText={setPassword}/>
-
-                <SuperCheckbox onChangeChecked={setRememberMe}
-                               checked={rememberMe}>
-                    some text
-                </SuperCheckbox>
-
+                <button onClick={singInHandler}>sing in</button>
             </div>
-
-            <button onClick={singInHandler}>sing in</button>
-
             <div>
                 <NavLink to={`/newPassword`}>forgot password?</NavLink>
             </div>
-
             <div>
                 <NavLink to={`/register`}>register</NavLink>
             </div>

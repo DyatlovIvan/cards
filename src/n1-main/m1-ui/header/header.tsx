@@ -1,11 +1,18 @@
 import {NavLink} from "react-router-dom";
 import style from "./header.module.css"
+import {useDispatch, useSelector} from "react-redux";
+import {RootStoreType} from "../../m2-bll/store";
+import {logoutTC} from "../../../n2-features/f1-auth/a1-login/loginReduser";
 
 export const Header = () =>{
-
+    const dispatch = useDispatch()
+    const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
+    const logoutHandler = () =>{
+        dispatch(logoutTC())
+    }
     return(
         <div className={style.header}>
-            <NavLink className={style.link} to={`/login`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Login</NavLink>
+            {isLoggedIn ? <button onClick={logoutHandler}>logout</button> : <NavLink className={style.link} to={`/login`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Login</NavLink>}
             <NavLink className={style.link} to={`/register`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Register</NavLink>
             <NavLink className={style.link} to={`/profile`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Profile</NavLink>
             <NavLink className={style.link} to={`/error`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Error</NavLink>

@@ -14,25 +14,33 @@ import {RootStoreType} from "../m2-bll/store";
 import {isAuth} from "../../n2-features/f1-auth/a1-login/loginReduser";
 
 
-
 //chek merge
 const App = () => {
     const dispatch = useDispatch()
-    const isLoggedIn = useSelector<RootStoreType,boolean>(state => state.Login.isLoggedIn)
-    const isInitializedId = useSelector<RootStoreType,string|null>(state =>state.Profile._id)
+    const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
+    const isInitialized = useSelector<RootStoreType, boolean>(state => state.App.isInitialized)
     const navigate = useNavigate()
 
-   // dispatch(isAuth())
-    useEffect(()=>{
-       if (isInitializedId===''){
-           navigate('/login')
-       }
-    },[isInitializedId])
 
-    useEffect(() =>{
-        if(isLoggedIn){
+    useEffect(() => {
+        dispatch(isAuth())
+    }, [])
+
+    useEffect(() => {
+        if (isLoggedIn) {
             navigate('/profile')
-        }},[isLoggedIn])
+        }
+    }, [isLoggedIn])
+
+    useEffect(() => {
+        if (isInitialized && !isLoggedIn) {
+            navigate('/login')
+        }
+    }, [isInitialized, isLoggedIn])
+
+    if (!isInitialized){
+        return <div>loading</div>
+    }
 
     return (
         <div className="App">

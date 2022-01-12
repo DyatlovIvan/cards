@@ -24,3 +24,6 @@ let store = createStore(reducer,applyMiddleware(thunk));
 export type RootStoreType = ReturnType<typeof reducer>
 export type StoreType = typeof store
 export default store
+
+//@ts-ignore
+window.store = store;
