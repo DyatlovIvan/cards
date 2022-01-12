@@ -15,7 +15,7 @@ const App = () => {
     return (
         <div className="App">
             <Header/>
-            <Routes >
+            <Routes>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/Register'} element={<Register/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
@@ -23,7 +23,6 @@ const App = () => {
                 <Route path={'/newPassword'} element={<NewPassword/>}/>
                 <Route path={'/repairPassword'} element={<RepairPassword/>}/>
                 <Route path={'/test'} element={<ShowAllComponents/>}/>
-
             </Routes>
 
         </div>

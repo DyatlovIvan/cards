@@ -23,7 +23,15 @@ const instance = axios.create({
 
 export const authAPI = {
     login(data: LoginParamsType) {
-        return instance.post('/auth/login',data)
+        return instance.post('/auth/login', data)
+    },
+    register(data: RegisterParamsType) {
+        return instance.post('/auth/register', data)
     }
 
+}
+
+export type RegisterParamsType = {
+    email: string
+    password: string
 }
