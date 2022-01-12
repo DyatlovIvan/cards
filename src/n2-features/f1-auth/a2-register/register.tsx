@@ -1,4 +1,3 @@
-import {SuperInputText} from "../../../n1-main/m1-ui/components/c3-SuperInput/SuperInputText";
 import {SuperButton} from "../../../n1-main/m1-ui/components/c1-SuperButton/SuperButton";
 import styles from './register.module.css'
 import {ChangeEvent, useState} from "react";
@@ -17,7 +16,8 @@ export const Register = () => {
 
     const error = useSelector<RootStoreType, null | string>(state => state.Register.isError)
     const isRegister = useSelector<RootStoreType, boolean>(state => state.Register.isRegisterIn)
-
+    const loading = useSelector<RootStoreType, boolean>(state => state.Register.loading)
+    console.log(loading)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -52,9 +52,10 @@ export const Register = () => {
         <div className={styles.RegisterFormContainer}>
             <h1>It Incubator</h1>
             <h2>Sign in</h2>
-            <form onSubmit={onSubmitForm}>
+            <form onSubmit={onSubmitForm} >
                 {error !== null && <span>{error}</span>}
                 <input
+                    disabled={loading}
                     className={styles.input}
                     onChange={onChangeEmailInput}
                     placeholder={'email'}
@@ -64,6 +65,7 @@ export const Register = () => {
                 />
                 <div className={styles.group}>
                     <input
+                        disabled={loading}
                         className={styles.input}
                         onChange={onChangePasswordInput}
                         placeholder={'password'}
@@ -79,6 +81,7 @@ export const Register = () => {
                 </div>
                 <div className={styles.group}>
                     <input
+                        disabled={loading}
                         className={styles.input}
                         onChange={onChangeRepeatPasswordInput}
                         name={'confirm password'}
@@ -93,8 +96,8 @@ export const Register = () => {
                     </span>
                 </div>
                 <div className={styles.buttonGroup}>
-                    <SuperButton className={styles.cancel} value={'cancel'}/>
-                    <SuperButton className={styles.register} type={'submit'} value={'register'}/>
+                    <SuperButton disabled={loading} className={styles.cancel} type={'button'} value={'cancel'}/>
+                    <SuperButton disabled={loading} className={styles.register} type={'submit'} value={'register'}/>
                 </div>
             </form>
         </div>
