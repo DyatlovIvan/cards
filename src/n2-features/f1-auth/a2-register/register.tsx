@@ -62,7 +62,7 @@ export const Register = () => {
                     value={email}
                     type={'email'}
                 />
-                <div className={styles.container}>
+                <div className={styles.group}>
                     <input
                         className={styles.input}
                         onChange={onChangePasswordInput}
@@ -77,7 +77,7 @@ export const Register = () => {
                     >&#128065;
                     </span>
                 </div>
-                <div className={styles.container}>
+                <div className={styles.group}>
                     <input
                         className={styles.input}
                         onChange={onChangeRepeatPasswordInput}

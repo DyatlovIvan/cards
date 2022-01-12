@@ -7,7 +7,7 @@
     padding: 10px;
 }
 
-.container {
+.group {
     position: relative;
 }
 
@@ -19,6 +19,7 @@
     border-bottom: 1px solid #ccc;
     outline: none;
     background-color: #F9F9FE;
+    padding: 10px;
 }
 
 .eye {
