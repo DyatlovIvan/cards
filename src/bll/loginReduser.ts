@@ -2,7 +2,7 @@ import {authAPI, LoginParamsType} from "../dal/api";
 import {Dispatch} from "redux";
 import {handlerAppError} from "./helpers/helpers";
 import {setAppError, setAppStatus, setIsInitialized} from "./AppReducer";
-import {login} from "./profileReducer";
+import { setProfile} from "./profileReducer";
 
 type InitialStateType = {
     isLoggedIn:boolean
@@ -31,7 +31,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
         dispatch(setAppError(null))
         dispatch(setAppStatus('loading'));
         const res = await authAPI.login(data)
-        dispatch(login(res.data))
+        dispatch(setProfile(res.data))
         dispatch(setIsLoggedIn(true))
         dispatch(setAppStatus('succeeded'))
     }catch (error){
@@ -58,7 +58,7 @@ export const isAuth = () => async (dispatch: Dispatch) => {
         dispatch(setAppError(null))
         dispatch(setAppStatus('loading'));
         const res = await authAPI.me()
-        dispatch(login(res.data))
+        dispatch(setProfile(res.data))
         dispatch(setIsLoggedIn(true))
         dispatch(setAppStatus('succeeded'))
     }catch(error){

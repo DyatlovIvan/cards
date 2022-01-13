@@ -26,7 +26,7 @@ const initialState:InitialStateType = {
 }
 export const ProfileReducer = (state:InitialStateType=initialState,action:MainType):InitialStateType=>{
     switch (action.type){
-        case "AUTH/LOGIN": {
+        case "AUTH/SET_PROFILE": {
             return {...state, ...action.data}
         }
         default:
@@ -34,8 +34,8 @@ export const ProfileReducer = (state:InitialStateType=initialState,action:MainTy
     }
 }
 
-type MainType = ReturnType<typeof login>
+type MainType = ReturnType<typeof setProfile>
 
-export const login = (data: InitialStateType) => ({
-    type: 'AUTH/LOGIN', data
+export const setProfile = (data: InitialStateType) => ({
+    type: 'AUTH/SET_PROFILE', data
 }) as const
