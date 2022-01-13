@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {registerTC} from "../../../bll/registerReducer";
 import {RootStoreType} from "../../../bll/store";
 import {useNavigate} from "react-router-dom";
+import {SuperInputText} from "../../components/c3-SuperInput/SuperInputText";
 
 export const Register = () => {
 
@@ -12,7 +13,6 @@ export const Register = () => {
     const [password, setPassword] = useState<string>('')
     const [repeatPassword, setRepeatPassword] = useState<string>('')
     const [inputType, setInputType] = useState<string>('password')
-
 
     const error = useSelector<RootStoreType, null | string>(state => state.Register.isError)
     const isRegister = useSelector<RootStoreType, boolean>(state => state.Register.isRegisterIn)
@@ -52,26 +52,26 @@ export const Register = () => {
         <div className={styles.RegisterFormContainer}>
             <h1>It Incubator</h1>
             <h2>Sign in</h2>
-            <form onSubmit={onSubmitForm} >
+            <form onSubmit={onSubmitForm}>
                 {error !== null && <span>{error}</span>}
-                <input
+                <SuperInputText
                     disabled={loading}
                     className={styles.input}
                     onChange={onChangeEmailInput}
                     placeholder={'email'}
                     name={'email'}
                     value={email}
-                    type={'email'}
+                    inputType={'email'}
                 />
                 <div className={styles.group}>
-                    <input
+                    <SuperInputText
                         disabled={loading}
                         className={styles.input}
                         onChange={onChangePasswordInput}
                         placeholder={'password'}
                         name={'password'}
                         value={password}
-                        type={inputType}
+                        inputType={inputType}
                     />
                     <span
                         className={styles.eye}
@@ -80,14 +80,14 @@ export const Register = () => {
                     </span>
                 </div>
                 <div className={styles.group}>
-                    <input
+                    <SuperInputText
+                        inputType={inputType}
                         disabled={loading}
                         className={styles.input}
                         onChange={onChangeRepeatPasswordInput}
                         name={'confirm password'}
                         placeholder={'confirm password'}
                         value={repeatPassword}
-                        type={inputType}
                     />
                     <span
                         onClick={changeInputType}
