@@ -42,6 +42,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
 
 export const logoutTC = () => async (dispatch:Dispatch)=>{
     try{
+        dispatch(setAppError(null))
         dispatch(setAppStatus('loading'));
         await authAPI.logout()
         dispatch(setIsLoggedIn(false))
@@ -61,7 +62,7 @@ export const isAuth = () => async (dispatch: Dispatch) => {
         dispatch(setIsLoggedIn(true))
         dispatch(setAppStatus('succeeded'))
     }catch(error){
-        handlerAppError(error, dispatch)
+        // handlerAppError(error, dispatch)
         dispatch(setAppStatus('failed'))
     } finally {
        dispatch(setIsInitialized())

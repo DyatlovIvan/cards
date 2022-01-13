@@ -1,3 +1,22 @@
 .error{
     color: red;
 }
+
+.RegisterFormContainer {
+    margin: 0 auto;
+    width: 413px;
+    height: 600px;
+    background-color: #F9F9FE;
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px;
+}
+.checkboxBlock{
+    text-align: right;
+}
+.forgotPasswordBlock{
+    text-align: right;
+}
+.singUp{
+    font-weight: bold;
+}
