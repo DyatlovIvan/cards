@@ -1,7 +1,12 @@
 .superInput {
-    border: 2px solid black;
-    border-radius: 5px;
-    margin: 10px;
+    width: 347px;
+    height: 48px;
+    margin-bottom: 24px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    background-color: #F9F9FE;
+    padding: 5px;
 }
 
 .errorInput {
