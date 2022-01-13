@@ -1,11 +1,11 @@
-import {SuperButton} from "../../components/c1-SuperButton/SuperButton";
+import {SuperButton} from "../../components/SuperButton/SuperButton";
 import styles from './register.module.css'
 import {ChangeEvent, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {registerTC} from "../../../bll/registerReducer";
 import {RootStoreType} from "../../../bll/store";
 import {useNavigate} from "react-router-dom";
-import {SuperInputText} from "../../components/c3-SuperInput/SuperInputText";
+import {SuperInputText} from "../../components/SuperInput/SuperInputText";
 
 export const Register = () => {
 

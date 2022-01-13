@@ -1,7 +1,7 @@
 import {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from "react";
 import s from './SuperInputText.module.css'
 
-type InputType = 'text' | 'password' | 'email'
+export type InputType = 'text' | 'password' | 'email'
 
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>

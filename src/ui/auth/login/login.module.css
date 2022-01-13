@@ -11,12 +11,31 @@
     text-align: center;
     padding: 10px;
 }
+.mainBlock{
+    margin-top: 70px;
+}
 .checkboxBlock{
+
     text-align: right;
 }
 .forgotPasswordBlock{
     text-align: right;
+    margin-bottom: 20px;
+}
+.singUpBlock{
+    margin-top: 50px;
 }
 .singUp{
     font-weight: bold;
+}
+.group {
+    position: relative;
+}
+.eye{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 45px;
+    bottom: 35px;
+    cursor: pointer;
 }
