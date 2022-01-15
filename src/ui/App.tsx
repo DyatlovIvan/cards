@@ -12,8 +12,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../bll/store";
 import {isAuth} from "../bll/loginReduser";
 
-
-//chek merge
 const App = () => {
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
@@ -24,12 +22,6 @@ const App = () => {
     useEffect(() => {
         dispatch(isAuth())
     }, [])
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            navigate('/profile')
-        }
-    }, [isLoggedIn])
 
     useEffect(() => {
         if (isInitialized && !isLoggedIn) {

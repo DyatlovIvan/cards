@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {SuperCheckbox} from "../../components/SuperCheckbox/SuperCheckbox";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../../bll/store";
 import {loginTC} from "../../../bll/loginReduser";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {InputType, SuperInputText} from "../../components/SuperInput/SuperInputText";
 import style from "./login.module.css"
 import {RequestStatusType} from "../../../bll/AppReducer";
@@ -13,6 +13,8 @@ import styles from "../register/register.module.css";
 
 export const Login = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
     const error = useSelector<RootStoreType, string | null>(state => state.App.error)
     const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
     const [email, setEmail] = useState<string>('nya-admin@nya.nya')
@@ -20,6 +22,13 @@ export const Login = () => {
     const [rememberMe, setRememberMe] = useState<boolean>(false)
     const [inputType, setInputType] = useState<InputType>('password')
     const disabled = status === 'loading';
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/profile')
+        }
+    }, [isLoggedIn])
+
     const singInHandler = () => {
         dispatch(loginTC({email, password, rememberMe}))
     }
