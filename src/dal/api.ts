@@ -27,18 +27,25 @@ export const authAPI = {
     },
     register(data: RegisterParamsType) {
         return instance.post('/auth/register', data)
-        return instance.post('/auth/login',data)
     },
-    logout(){
-        return instance.delete('/auth/me',{})
+    logout() {
+        return instance.delete('/auth/me', {})
     },
-    me(){
-        return instance.post('/auth/me',{})
+    me() {
+        return instance.post('/auth/me', {})
     }
+}
 
+export const cardsAPI = {
+
+    getCards(cardPack_id: string) {
+        return instance.get('cards/card', {params:{cardPack_id: '5eb6a2f72f849402d46c6ac7'}})
+    }
 }
 
 export type RegisterParamsType = {
     email: string
     password: string
 }
+
+const cardsPack_id = '5eb6a2f72f849402d46c6ac7'
