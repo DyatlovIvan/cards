@@ -1,13 +1,13 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import thunk from "redux-thunk";
-import {LoginReducer} from "./loginReduser";
+import thunk, {ThunkAction} from "redux-thunk";
+import {LoginMainType, LoginReducer} from "./loginReduser";
 import {RegisterReducer} from "./registerReducer";
-import {ProfileReducer} from "./profileReducer";
+import {ProfileMainType, ProfileReducer} from "./profileReducer";
 import {ErrorReducer} from "./errorReducer";
 import {NewPasswordReducer} from "./newPasswordreducer";
 import {RepairPasswordReducer} from "./repairPasswordReducer";
-import {AppReducer} from "./AppReducer";
-import {PacksReducer} from "./packsReducer";
+import {AppMainType, AppReducer} from "./AppReducer";
+import {PacksMainType, PacksReducer} from "./packsReducer";
 
 
 let reducer = combineReducers({
@@ -26,6 +26,14 @@ let store = createStore(reducer,applyMiddleware(thunk));
 export type RootStoreType = ReturnType<typeof reducer>
 export type StoreType = typeof store
 export default store
+
+export type AppActionsType =
+    | AppMainType
+    | ProfileMainType
+    | LoginMainType
+    | PacksMainType
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootStoreType, unknown, AppActionsType>
 
 //@ts-ignore
 window.store = store;

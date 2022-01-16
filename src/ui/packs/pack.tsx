@@ -8,9 +8,10 @@ type PackType = {
     cards: number
     lastUpdated: string
     createdBy: string
+    packUserId:string
 }
 export const Pack = (props: PackType) => {
-    const idUser = useSelector<RootStoreType,string>(state => state.Profile._id)
+    const userId = useSelector<RootStoreType,string>(state => state.Profile._id)
     const lastUpdated = dataHandler(props.lastUpdated)
     return (
         <div>
@@ -18,8 +19,8 @@ export const Pack = (props: PackType) => {
             <span> {props.cards}</span>
             <span> {lastUpdated}</span>
             <span> {props.createdBy}</span>
-            {idUser===props.id && <button>Delete</button>}
-            {idUser===props.id && <button>Edit</button>}
+            {userId===props.packUserId && <button>Delete</button>}
+            {userId===props.packUserId && <button>Edit</button>}
             <button>Learn</button>
         </div>
     )

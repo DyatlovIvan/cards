@@ -3,14 +3,12 @@ import {Dispatch} from "redux";
 import {handlerAppError} from "./helpers/helpers";
 import {setAppError, setAppStatus, setIsInitialized} from "./AppReducer";
 import { setProfile} from "./profileReducer";
+import {AppActionsType} from "./store";
 
-type InitialStateType = {
-    isLoggedIn:boolean
-}
 const initialState: InitialStateType = {
     isLoggedIn:false
 }
-export const LoginReducer = (state: InitialStateType = initialState, action: MainType): InitialStateType => {
+export const LoginReducer = (state: InitialStateType = initialState, action: LoginMainType): InitialStateType => {
     switch (action.type) {
         case "AUTH/SET_IS_LOGGED_IN":
             return {...state, isLoggedIn: action.isLogged}
@@ -18,8 +16,6 @@ export const LoginReducer = (state: InitialStateType = initialState, action: Mai
             return state
     }
 }
-
-type MainType = ReturnType<typeof setIsLoggedIn>
 
 export const setIsLoggedIn = (isLogged:boolean) => ({
     type: 'AUTH/SET_IS_LOGGED_IN',isLogged
@@ -40,7 +36,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
     }
 }
 
-export const logoutTC = () => async (dispatch:Dispatch)=>{
+export const logoutTC = () => async (dispatch:Dispatch<AppActionsType>)=>{
     try{
         dispatch(setAppError(null))
         dispatch(setAppStatus('loading'));
@@ -53,7 +49,7 @@ export const logoutTC = () => async (dispatch:Dispatch)=>{
     }
 }
 
-export const isAuth = () => async (dispatch: Dispatch) => {
+export const isAuth = () => async (dispatch: Dispatch<AppActionsType>) => {
     try {
         dispatch(setAppError(null))
         dispatch(setAppStatus('loading'));
@@ -69,3 +65,8 @@ export const isAuth = () => async (dispatch: Dispatch) => {
     }
 
 }
+type InitialStateType = {
+    isLoggedIn:boolean
+}
+export type LoginMainType = SetIsLoggedInType
+type SetIsLoggedInType = ReturnType<typeof setIsLoggedIn>

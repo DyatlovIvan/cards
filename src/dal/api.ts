@@ -1,11 +1,7 @@
 import axios,{ AxiosResponse } from "axios"
 import {cardPacksType} from "../bll/packsReducer";
 
-export type LoginParamsType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
+
 
 // const instance = axios.create({
 //     baseURL: 'https://neko-back.herokuapp.com/2.0',
@@ -36,7 +32,16 @@ export const authAPI = {
 export const packsAPI = {
     getPacks(params:getPacksRequestType){
         return instance.get('/cards/pack',{params:params})
+    },
+    createPack(data:CreatePackModelType){
+        return instance.post('/cards/pack',{cardsPack:data})
     }
+}
+
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
 }
 
 export type RegisterParamsType = {
@@ -62,4 +67,15 @@ type ResponsePacksType = {
     minCardsCount: number
     page: number
     pageCount: number
+}
+
+export type CreatePackModelType = {
+    name:string
+    path?:string
+    grade?: number
+    shots?: number
+    rating?: number
+    deckCover?: string
+    private?: boolean
+    type?: string
 }
