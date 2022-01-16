@@ -1,6 +1,5 @@
-import axios,{ AxiosResponse } from "axios"
+import axios, {AxiosResponse} from "axios"
 import {cardPacksType} from "../bll/packsReducer";
-
 
 
 // const instance = axios.create({
@@ -20,21 +19,27 @@ export const authAPI = {
     register(data: RegisterParamsType) {
         return instance.post('/auth/register', data)
     },
-    logout(){
-        return instance.delete('/auth/me',{})
+    logout() {
+        return instance.delete('/auth/me', {})
     },
-    me(){
-        return instance.post('/auth/me',{})
+    me() {
+        return instance.post('/auth/me', {})
     }
 
 }
 
 export const packsAPI = {
-    getPacks(params:getPacksRequestType){
-        return instance.get('/cards/pack',{params:params})
+    getPacks(params: getPacksRequestType) {
+        return instance.get('/cards/pack', {params: params})
     },
-    createPack(data:CreatePackModelType){
-        return instance.post('/cards/pack',{cardsPack:data})
+    createPack(data: CreatePackModelType) {
+        return instance.post('/cards/pack', {cardsPack: data})
+    },
+    deletePack(id: string) {
+        return instance.delete('/cards/pack',{params:{id}})
+    },
+    updatePack(data:UpdatePackModelType){
+        return instance.put('/cards/pack',{cardsPack:data})
     }
 }
 
@@ -70,12 +75,17 @@ type ResponsePacksType = {
 }
 
 export type CreatePackModelType = {
-    name:string
-    path?:string
+    name?: string
+    path?: string
     grade?: number
     shots?: number
     rating?: number
     deckCover?: string
     private?: boolean
     type?: string
+}
+
+export type UpdatePackModelType = {
+    _id:string
+    name:string
 }

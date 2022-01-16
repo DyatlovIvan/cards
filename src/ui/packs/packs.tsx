@@ -1,15 +1,18 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import {cardPacksType, createPack, getPacks} from "../../bll/packsReducer";
+import {cardPacksType, createPack, deletePack, getPacks, updatePack} from "../../bll/packsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
 import {SuperCheckbox} from "../components/SuperCheckbox/SuperCheckbox";
 import {Pack} from "./pack";
+import {RequestStatusType} from "../../bll/AppReducer";
 
 export const Packs = () => {
     const dispatch = useDispatch()
     const [myPacks, setMyPacks] = useState<boolean>(false)
     const packs = useSelector<RootStoreType, Array<cardPacksType>>(state => state.Packs.cardPacks)
     const userId = useSelector<RootStoreType, string>(state => state.Profile._id)
+    const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
+    const disabled = status === 'loading';
     const packName = ''
     const min = 0
     const max = 9
@@ -18,7 +21,7 @@ export const Packs = () => {
     const pageCount = 10
     const user_id = myPacks ? userId : ''
     useEffect(() => {
-        debugger
+
         dispatch(getPacks({
             packName, min,
             max, sortPacks,
@@ -31,6 +34,23 @@ export const Packs = () => {
     }
     const AddNewPackHandler = () => {
         dispatch(createPack({name: 'TEXT'},{
+            packName, min,
+            max, sortPacks,
+            page, pageCount,
+            user_id
+        }))
+    }
+    const deletePackHandler = (id:string)=> {
+        dispatch(deletePack(id, {
+            packName, min,
+            max, sortPacks,
+            page, pageCount,
+            user_id
+        }))
+    }
+
+    const updatePackHandler = (id:string)=> {
+        dispatch(updatePack({_id:id,name:'newTest'}, {
             packName, min,
             max, sortPacks,
             page, pageCount,
@@ -52,7 +72,10 @@ export const Packs = () => {
                       cards={el.cardsCount}
                       lastUpdated={el.updated}
                       createdBy={el.user_name}
-                      packUserId={el.user_id}/>
+                      packUserId={el.user_id}
+                      disabled ={disabled}
+                      deletePackHandler = {deletePackHandler}
+                      updatePackHandler = {updatePackHandler}/>
             )}
         </div>
     )

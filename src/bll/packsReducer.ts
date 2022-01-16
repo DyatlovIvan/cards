@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {CreatePackModelType, getPacksRequestType, packsAPI} from "../dal/api";
+import {CreatePackModelType, getPacksRequestType, packsAPI, UpdatePackModelType} from "../dal/api";
 import {setAppError, setAppStatus} from "./AppReducer";
 import {handlerAppError} from "./helpers/helpers";
 import {AppActionsType, AppThunk} from "./store";
@@ -67,6 +67,34 @@ export const createPack = (data:CreatePackModelType,params:getPacksRequestType):
         dispatch(setAppStatus('failed'))
     }
 }
+
+export const deletePack = (id:string,params:getPacksRequestType):AppThunk =>
+    async (dispatch)=>{
+        try{
+            dispatch(setAppError(null))
+            dispatch(setAppStatus('loading'));
+            await packsAPI.deletePack(id)
+            await dispatch(getPacks(params))
+            dispatch(setAppStatus('succeeded'))
+        }catch (error) {
+            handlerAppError(error, dispatch);
+            dispatch(setAppStatus('failed'))
+        }
+    }
+
+export const updatePack = (data:UpdatePackModelType,params:getPacksRequestType):AppThunk =>
+    async (dispatch)=>{
+        try{
+            dispatch(setAppError(null))
+            dispatch(setAppStatus('loading'));
+            await packsAPI.updatePack(data)
+            await dispatch(getPacks(params))
+            // dispatch(setAppStatus('succeeded'))
+        }catch (error) {
+            handlerAppError(error, dispatch);
+            dispatch(setAppStatus('failed'))
+        }
+    }
 
 export type cardPacksType = {
     _id: string
