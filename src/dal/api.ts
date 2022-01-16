@@ -1,4 +1,5 @@
-import axios from "axios"
+import axios,{ AxiosResponse } from "axios"
+import {cardPacksType} from "../bll/packsReducer";
 
 export type LoginParamsType = {
     email: string
@@ -32,7 +33,33 @@ export const authAPI = {
 
 }
 
+export const packsAPI = {
+    getPacks(params:getPacksRequestType){
+        return instance.get('/cards/pack',{params:params})
+    }
+}
+
 export type RegisterParamsType = {
     email: string
     password: string
+}
+
+export type getPacksRequestType = {
+    packName?: string
+    min?: number
+    max?: number
+    sortPacks?: number
+    page?: number
+    pageCount?: number
+    user_id?: string
+}
+
+
+type ResponsePacksType = {
+    cardsPacks: Array<cardPacksType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
 }

@@ -11,6 +11,7 @@ import {RepairPassword} from "./password/repairPassword/repairPassword";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../bll/store";
 import {isAuth} from "../bll/loginReduser";
+import {Packs} from "./packs/packs";
 
 const App = () => {
     const dispatch = useDispatch()
@@ -43,6 +44,7 @@ const App = () => {
                 <Route path={'/error'} element={<Error/>}/>
                 <Route path={'/newPassword'} element={<NewPassword/>}/>
                 <Route path={'/repairPassword'} element={<RepairPassword/>}/>
+                <Route path={'/packs'} element={<Packs/>}/>
             </Routes>
 
         </div>
