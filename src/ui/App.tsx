@@ -7,11 +7,13 @@ import {Register} from "./auth/register/register";
 import {Profile} from "./profile/profile";
 import {Error} from "./error/error";
 import {NewPassword} from "./password/newPassword/newPassword";
-import {RepairPassword} from "./password/repairPassword/repairPassword";
+import {ForgotPassword} from "./password/forgotPassword/forgotPassword";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../bll/store";
 import {isAuth} from "../bll/loginReduser";
 import {Packs} from "./packs/packs";
+import {Email} from "./password/email";
+
 
 const App = () => {
     const dispatch = useDispatch()
@@ -24,12 +26,6 @@ const App = () => {
         dispatch(isAuth())
     }, [])
 
-    useEffect(() => {
-        if (isInitialized && !isLoggedIn) {
-            navigate('/login')
-        }
-    }, [isInitialized, isLoggedIn])
-
     if (!isInitialized){
         return <div>loading</div>
     }
@@ -39,11 +35,12 @@ const App = () => {
             <Header/>
             <Routes>
                 <Route path={'/login'} element={<Login/>}/>
-                <Route path={'/Register'} element={<Register/>}/>
+                <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
                 <Route path={'/error'} element={<Error/>}/>
-                <Route path={'/newPassword'} element={<NewPassword/>}/>
-                <Route path={'/repairPassword'} element={<RepairPassword/>}/>
+                <Route path={'/forgot'} element={<ForgotPassword/>}/>
+                <Route path={'/set-new-password/:token'} element={<NewPassword/>}/>
+                <Route path={'/email'} element={<Email/>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
             </Routes>
 

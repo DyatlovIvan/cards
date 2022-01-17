@@ -4,8 +4,8 @@ import {LoginMainType, LoginReducer} from "./loginReduser";
 import {RegisterReducer} from "./registerReducer";
 import {ProfileMainType, ProfileReducer} from "./profileReducer";
 import {ErrorReducer} from "./errorReducer";
-import {NewPasswordReducer} from "./newPasswordreducer";
-import {RepairPasswordReducer} from "./repairPasswordReducer";
+import {NewPasswordReducer} from "./password/newPasswordReducer";
+import {ForgotPasswordReducer} from "./password/forgotPasswordReducer";
 import {AppMainType, AppReducer} from "./AppReducer";
 import {PacksMainType, PacksReducer} from "./packsReducer";
 
@@ -17,7 +17,7 @@ let reducer = combineReducers({
     Profile:ProfileReducer,
     Error:ErrorReducer,
     NewPassword:NewPasswordReducer,
-    RepairPassword:RepairPasswordReducer,
+    ForgotPassword:ForgotPasswordReducer,
     Packs:PacksReducer
 })
 

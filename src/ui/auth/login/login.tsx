@@ -12,6 +12,10 @@ import styles from "../register/register.module.css";
 
 
 export const Login = () => {
+    const navigate = useNavigate()
+    const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
+    const isInitialized = useSelector<RootStoreType, boolean>(state => state.App.isInitialized)
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
@@ -35,6 +39,15 @@ export const Login = () => {
     const changeInputType = () => {
         setInputType(inputType==='password'?'text':'password')
     }
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/profile')
+        }
+        if (isInitialized && !isLoggedIn) {
+            navigate('/login')
+        }
+    }, [isInitialized, isLoggedIn])
 
     return (
         <div className={style.RegisterFormContainer}>
@@ -62,7 +75,7 @@ export const Login = () => {
                     </SuperCheckbox>
                 </div>
                 <div className={style.forgotPasswordBlock}>
-                    <NavLink style={{textDecoration: "none", color: "black"}} to={`/newPassword`}>forgot
+                    <NavLink style={{textDecoration: "none", color: "black"}} to={`/forgot`}>forgot
                         password?</NavLink>
                 </div>
 
