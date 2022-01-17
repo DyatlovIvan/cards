@@ -1,7 +1,9 @@
 import {Dispatch} from "redux";
 import {cardsAPI} from "../dal/api";
+import {handlerAppError} from "./helpers/helpers";
+import {setAppStatus} from "./AppReducer";
 
-type CardType = {
+export type CardType = {
     answer: string
     question: string
     cardsPack_id: string
@@ -10,8 +12,8 @@ type CardType = {
     shots: number
     type: string
     user_id: string
-    created: Date
-    updated: Date
+    created: ''
+    updated: ''
     __v: number
     _id: string
 }
@@ -37,8 +39,8 @@ const initialState: InitialStateType = {
             shots: 0,
             type: 'card',
             user_id: '',
-            created: new Date,
-            updated: new Date,
+            created: '',
+            updated: '',
             __v: 0,
             _id: '',
         },
@@ -52,10 +54,10 @@ const initialState: InitialStateType = {
 }
 
 
-export const cardsReducer = (state: InitialStateType = initialState, action: ActionCardsType): InitialStateType => {
+export const CardsReducer = (state: InitialStateType = initialState, action: ActionCardsType): InitialStateType => {
     switch (action.type) {
         case 'SET_CARDS': {
-            return {...state, cards: action.cards}
+            return {...state, cards:action.cards}
         }
 
         default:
@@ -65,13 +67,17 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
 
 export const setCards = (cards: CardType[]) => ({type: 'SET_CARDS', cards} as const);
 type SetCardsType = ReturnType<typeof setCards>
-const cardsPack_id = '5eb6a2f72f849402d46c6ac7'
-export const getCards =() => (dispatch: Dispatch<ActionCardsType>) => {
-    cardsAPI.getCards('cardsPack_id')
-        .then(res => {
-            dispatch(setCards(res.data.cards))
-        })
-}
+const cardsPack_id = '5faf6731f343150004f08b1f'
 
+export const getCards = (cardsPack_id: string) => async (dispatch: Dispatch) => {
+    try {
+        dispatch(setAppStatus('loading'))
+        const res = await cardsAPI.getCards(cardsPack_id)
+        dispatch(setCards(res.data.cards))
+        dispatch(setAppStatus('failed'))
+    } catch (error) {
+        handlerAppError(error, dispatch)
+    }
+}
 
 export type ActionCardsType = SetCardsType

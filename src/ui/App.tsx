@@ -11,6 +11,7 @@ import {RepairPassword} from "./password/repairPassword/repairPassword";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../bll/store";
 import {isAuth} from "../bll/loginReduser";
+import {Cards} from "./cards/cards";
 
 
 //chek merge
@@ -51,8 +52,8 @@ const App = () => {
                 <Route path={'/error'} element={<Error/>}/>
                 <Route path={'/newPassword'} element={<NewPassword/>}/>
                 <Route path={'/repairPassword'} element={<RepairPassword/>}/>
+                <Route path={'/cards'} element={<Cards/>}/>
             </Routes>
-
         </div>
     );
 }

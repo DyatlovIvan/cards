@@ -38,14 +38,30 @@ export const authAPI = {
 
 export const cardsAPI = {
 
-    getCards(cardPack_id: string) {
-        return instance.get('cards/card', {params:{cardPack_id: '5eb6a2f72f849402d46c6ac7'}})
+    getCards(cardsPack_id: string) {
+        return instance.get('cards/card', {params: {cardsPack_id}})
+    },
+    addCards(card: CardParamsType) {
+        return instance.post('cards/card', {card})
     }
+
+}
+
+export type CardParamsType = {
+    cardsPack_id: "5eb543f6bea3ad21480f1ee7"
+    question: "no question" | string // если не отправить будет таким
+    answer: "no answer" | string  // если не отправить будет таким
+    grade?: number // 0..5, не обязателен
+    shots?: number // не обязателен
+    rating?: number// не обязателен
+    answerImg?: "url or base 64" // не обязателен
+    questionImg?: "url or base 64" // не обязателен
+    questionVideo?: "url or base 64" // не обязателен
+    answerVideo?: "url or base 64" // не обязателен
+    type: "card" | string // если не отправить будет таким
 }
 
 export type RegisterParamsType = {
     email: string
     password: string
 }
-
-const cardsPack_id = '5eb6a2f72f849402d46c6ac7'

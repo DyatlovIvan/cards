@@ -1,0 +1,22 @@
+.header {
+    border: 1px solid black;
+}
+
+.header_list {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+
+.header_item {
+
+}
+
+.card {
+    display: flex;
+}
+
+.card_item {
+    width: 140px;
+    padding: 5px;
+}

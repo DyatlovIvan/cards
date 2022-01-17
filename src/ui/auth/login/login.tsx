@@ -28,7 +28,7 @@ export const Login = () => {
             <h2>Sign in</h2>
             {status === 'loading' && <span>{status}</span>}
             {error && <span className={style.error}>{error}</span>}
-            <SuperInputText disabled={disabled} value={email} onChangeText={setEmail}/>
+            <SuperInputText disabled={disabled} inputType={'email'} value={email} onChangeText={setEmail}/>
             <SuperInputText disabled={disabled} value={password} onChangeText={setPassword}/>
             <div className={style.checkboxBlock}>
                 <SuperCheckbox onChangeChecked={setRememberMe}
