@@ -53,7 +53,7 @@ export const Login = () => {
                     </SuperCheckbox>
                 </div>
                 <div className={style.forgotPasswordBlock}>
-                    <NavLink style={{textDecoration: "none", color: "black"}} to={`/newPassword`}>forgot
+                    <NavLink style={{textDecoration: "none", color: "black"}} to={`/forgot`}>forgot
                         password?</NavLink>
                 </div>
 

@@ -4,8 +4,8 @@ import {LoginReducer} from "./loginReduser";
 import {RegisterReducer} from "./registerReducer";
 import {ProfileReducer} from "./profileReducer";
 import {ErrorReducer} from "./errorReducer";
-import {NewPasswordReducer} from "./newPasswordreducer";
-import {RepairPasswordReducer} from "./repairPasswordReducer";
+import {NewPasswordReducer} from "./password/newPasswordReducer";
+import {ForgotPasswordReducer} from "./password/forgotPasswordReducer";
 import {AppReducer} from "./AppReducer";
 
 
@@ -16,7 +16,7 @@ let reducer = combineReducers({
     Profile:ProfileReducer,
     Error:ErrorReducer,
     NewPassword:NewPasswordReducer,
-    RepairPassword:RepairPasswordReducer
+    ForgotPassword:ForgotPasswordReducer
 })
 
 let store = createStore(reducer,applyMiddleware(thunk));
