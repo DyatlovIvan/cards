@@ -30,7 +30,7 @@ export const authAPI = {
 
 export const packsAPI = {
     getPacks(params: getPacksRequestType) {
-        return instance.get('/cards/pack', {params: params})
+        return instance.get(`/cards/pack`, {params: params})
     },
     createPack(data: CreatePackModelType) {
         return instance.post('/cards/pack', {cardsPack: data})

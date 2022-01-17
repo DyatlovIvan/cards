@@ -19,7 +19,7 @@ const initialState: InitialStateType = {
             created: "",
             updated: "",
             __v: 0,
-            user_name:''
+            user_name: ''
         }
     ],
     cardPacksTotalCount: 0,
@@ -31,66 +31,66 @@ const initialState: InitialStateType = {
 export const PacksReducer = (state: InitialStateType = initialState, action: PacksMainType): InitialStateType => {
     switch (action.type) {
         case 'PACKS/SET_PACKS': {
-            return {...state,...action.data}
+            return {...state, ...action.data}
         }
         default:
             return state
     }
 }
 
-const setPacks = (data:InitialStateType)=>({ type:'PACKS/SET_PACKS',data})as const
+const setPacks = (data: InitialStateType) => ({type: 'PACKS/SET_PACKS', data}) as const
 
-export const getPacks = (params:getPacksRequestType):AppThunk =>
-    async (dispatch)=>{
-    try{
-        dispatch(setAppError(null))
-        dispatch(setAppStatus('loading'));
-        const res = await packsAPI.getPacks(params)
-        dispatch(setPacks(res.data))
-        dispatch(setAppStatus('succeeded'))
-    }catch (error) {
-        handlerAppError(error, dispatch);
-        dispatch(setAppStatus('failed'))
-    }
-}
-
-export const createPack = (data:CreatePackModelType,params:getPacksRequestType):AppThunk =>
-    async (dispatch)=>{
-    try{
-        dispatch(setAppError(null))
-        dispatch(setAppStatus('loading'));
-        await packsAPI.createPack(data)
-        await dispatch(getPacks(params))
-        dispatch(setAppStatus('succeeded'))
-    }catch (error) {
-        handlerAppError(error, dispatch);
-        dispatch(setAppStatus('failed'))
-    }
-}
-
-export const deletePack = (id:string,params:getPacksRequestType):AppThunk =>
-    async (dispatch)=>{
-        try{
+export const getPacks = (params: getPacksRequestType): AppThunk =>
+    async (dispatch) => {
+        try {
             dispatch(setAppError(null))
             dispatch(setAppStatus('loading'));
-            await packsAPI.deletePack(id)
-            await dispatch(getPacks(params))
+            const res = await packsAPI.getPacks(params)
+            dispatch(setPacks(res.data))
             dispatch(setAppStatus('succeeded'))
-        }catch (error) {
+        } catch (error) {
             handlerAppError(error, dispatch);
             dispatch(setAppStatus('failed'))
         }
     }
 
-export const updatePack = (data:UpdatePackModelType,params:getPacksRequestType):AppThunk =>
-    async (dispatch)=>{
-        try{
+export const createPack = (data: CreatePackModelType, params: getPacksRequestType): AppThunk =>
+    async (dispatch) => {
+        try {
+            dispatch(setAppError(null))
+            dispatch(setAppStatus('loading'));
+            await packsAPI.createPack(data)
+            dispatch(getPacks(params))
+            dispatch(setAppStatus('succeeded'))
+        } catch (error) {
+            handlerAppError(error, dispatch);
+            dispatch(setAppStatus('failed'))
+        }
+    }
+
+export const deletePack = (id: string, params: getPacksRequestType): AppThunk =>
+    async (dispatch) => {
+        try {
+            dispatch(setAppError(null))
+            dispatch(setAppStatus('loading'));
+            await packsAPI.deletePack(id)
+            await dispatch(getPacks(params))
+            dispatch(setAppStatus('succeeded'))
+        } catch (error) {
+            handlerAppError(error, dispatch);
+            dispatch(setAppStatus('failed'))
+        }
+    }
+
+export const updatePack = (data: UpdatePackModelType, params: getPacksRequestType): AppThunk =>
+    async (dispatch) => {
+        try {
             dispatch(setAppError(null))
             dispatch(setAppStatus('loading'));
             await packsAPI.updatePack(data)
             await dispatch(getPacks(params))
             // dispatch(setAppStatus('succeeded'))
-        }catch (error) {
+        } catch (error) {
             handlerAppError(error, dispatch);
             dispatch(setAppStatus('failed'))
         }
@@ -109,7 +109,7 @@ export type cardPacksType = {
     created: string
     updated: string
     __v: number
-    user_name:string
+    user_name: string
 }
 type InitialStateType = {
     cardPacks: Array<cardPacksType>

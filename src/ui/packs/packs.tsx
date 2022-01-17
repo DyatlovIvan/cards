@@ -1,10 +1,12 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {cardPacksType, createPack, deletePack, getPacks, updatePack} from "../../bll/packsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
 import {SuperCheckbox} from "../components/SuperCheckbox/SuperCheckbox";
 import {Pack} from "./pack";
 import {RequestStatusType} from "../../bll/AppReducer";
+
+
 
 export const Packs = () => {
     const dispatch = useDispatch()
@@ -20,33 +22,25 @@ export const Packs = () => {
     const page = 1
     const pageCount = 10
     const user_id = myPacks ? userId : ''
-    useEffect(() => {
 
-        dispatch(getPacks({
-            packName, min,
-            max, sortPacks,
-            page, pageCount,
-            user_id
-        }))
+    const params ={
+        packName, min,
+        max, sortPacks,
+        page, pageCount,
+        user_id
+    }
+    useEffect(() => {
+        dispatch(getPacks(params))
     }, [myPacks])
+
     const showOnlyMyPacks = () => {
         setMyPacks(!myPacks)
     }
     const AddNewPackHandler = () => {
-        dispatch(createPack({name: 'TEXT'},{
-            packName, min,
-            max, sortPacks,
-            page, pageCount,
-            user_id
-        }))
+        dispatch(createPack({name: 'TEXT'},params))
     }
     const deletePackHandler = (id:string)=> {
-        dispatch(deletePack(id, {
-            packName, min,
-            max, sortPacks,
-            page, pageCount,
-            user_id
-        }))
+        dispatch(deletePack(id, params))
     }
 
     const updatePackHandler = (id:string)=> {

@@ -1,9 +1,10 @@
 import {dataHandler} from "../../bll/helpers/dataHandler";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
 import React from "react";
 import {SuperButton} from "../components/SuperButton/SuperButton";
 import style from './packs.module.css'
+import { Table, Button } from 'antd';
 
 type PackType = {
     id:string
@@ -21,6 +22,24 @@ export const Pack = (props: PackType) => {
     const userId = useSelector<RootStoreType,string>(state => state.Profile._id)
     const lastUpdated = dataHandler(props.lastUpdated)
 
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+        },
+        {
+            title: 'Cards',
+            dataIndex: 'cards',
+        },
+        {
+            title: 'Updated',
+            dataIndex: 'updated',
+        },
+        {
+            title: 'Crea',
+            dataIndex: 'updated',
+        }
+    ];
     return (
         <div>
             <span> {props.name}</span>
