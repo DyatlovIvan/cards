@@ -12,12 +12,9 @@ import styles from "../register/register.module.css";
 
 
 export const Login = () => {
-    const navigate = useNavigate()
-    const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
-    const isInitialized = useSelector<RootStoreType, boolean>(state => state.App.isInitialized)
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const isInitialized = useSelector<RootStoreType, boolean>(state => state.App.isInitialized)
     const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
     const error = useSelector<RootStoreType, string | null>(state => state.App.error)
     const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)

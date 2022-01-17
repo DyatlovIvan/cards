@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {Header} from "./header/header";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {Login} from "./auth/login/login";
 import {Register} from "./auth/register/register";
 import {Profile} from "./profile/profile";
@@ -13,14 +13,12 @@ import {RootStoreType} from "../bll/store";
 import {isAuth} from "../bll/loginReduser";
 import {Packs} from "./packs/packs";
 import {Email} from "./password/email";
+import {Cards} from "./cards/cards";
 
 
 const App = () => {
     const dispatch = useDispatch()
-    const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
     const isInitialized = useSelector<RootStoreType, boolean>(state => state.App.isInitialized)
-    const navigate = useNavigate()
-
 
     useEffect(() => {
         dispatch(isAuth())
@@ -42,10 +40,10 @@ const App = () => {
                 <Route path={'/set-new-password/:token'} element={<NewPassword/>}/>
                 <Route path={'/email'} element={<Email/>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
+                <Route path={'/cards'} element={<Cards/>}/>
             </Routes>
 
         </div>
     );
 }
-
 export default App;

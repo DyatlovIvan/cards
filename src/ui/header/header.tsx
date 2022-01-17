@@ -19,6 +19,7 @@ export const Header = () =>{
             <NavLink className={style.link} to={`/set-new-password/:token`} style = {(params)=>({color:params.isActive?'coral':'black'})}>New password</NavLink>
             <NavLink className={style.link} to={`/forgot`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Repair password</NavLink>
             <NavLink className={style.link} to={`/packs`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Packs</NavLink>
+            <NavLink className={style.link} to={`/cards`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Cards</NavLink>
         </div>
     )
 }

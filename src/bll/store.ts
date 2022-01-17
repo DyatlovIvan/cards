@@ -8,6 +8,7 @@ import {NewPasswordReducer} from "./password/newPasswordReducer";
 import {ForgotPasswordReducer} from "./password/forgotPasswordReducer";
 import {AppMainType, AppReducer} from "./AppReducer";
 import {PacksMainType, PacksReducer} from "./packsReducer";
+import {CardsReducer} from "./cardsReducer";
 
 
 let reducer = combineReducers({
@@ -18,7 +19,8 @@ let reducer = combineReducers({
     Error:ErrorReducer,
     NewPassword:NewPasswordReducer,
     ForgotPassword:ForgotPasswordReducer,
-    Packs:PacksReducer
+    Packs:PacksReducer,
+    Cards: CardsReducer
 })
 
 let store = createStore(reducer,applyMiddleware(thunk));
