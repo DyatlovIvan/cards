@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
 import {CardType, getCards} from "../../bll/cardsReducer";
 import {Card} from "./card";
-import {SuperButton} from "../components/c1-SuperButton/SuperButton";
+import {SuperButton} from "../components/SuperButton/SuperButton";
 import s from './cards.module.css'
 
 
