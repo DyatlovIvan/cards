@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {SuperCheckbox} from "../../components/SuperCheckbox/SuperCheckbox";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../../bll/store";
 import {loginTC} from "../../../bll/loginReduser";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {InputType, SuperInputText} from "../../components/SuperInput/SuperInputText";
 import style from "./login.module.css"
 import {RequestStatusType} from "../../../bll/AppReducer";
@@ -12,6 +12,10 @@ import styles from "../register/register.module.css";
 
 
 export const Login = () => {
+    const navigate = useNavigate()
+    const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
+    const isInitialized = useSelector<RootStoreType, boolean>(state => state.App.isInitialized)
+
     const dispatch = useDispatch()
     const error = useSelector<RootStoreType, string | null>(state => state.App.error)
     const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
@@ -26,6 +30,15 @@ export const Login = () => {
     const changeInputType = () => {
         setInputType(inputType==='password'?'text':'password')
     }
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/profile')
+        }
+        if (isInitialized && !isLoggedIn) {
+            navigate('/login')
+        }
+    }, [isInitialized, isLoggedIn])
 
     return (
         <div className={style.RegisterFormContainer}>

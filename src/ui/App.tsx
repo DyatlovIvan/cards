@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {Header} from "./header/header";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import {Login} from "./auth/login/login";
 import {Register} from "./auth/register/register";
 import {Profile} from "./profile/profile";
@@ -25,18 +25,6 @@ const App = () => {
         dispatch(isAuth())
     }, [])
 
-    useEffect(() => {
-        if (isLoggedIn) {
-            navigate('/profile')
-        }
-    }, [isLoggedIn])
-
-    useEffect(() => {
-        if (isInitialized && !isLoggedIn) {
-            navigate('/login')
-        }
-    }, [isInitialized, isLoggedIn])
-
     if (!isInitialized){
         return <div>loading</div>
     }
@@ -46,14 +34,12 @@ const App = () => {
             <Header/>
             <Routes>
                 <Route path={'/login'} element={<Login/>}/>
-                <Route path={'/Register'} element={<Register/>}/>
+                <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
                 <Route path={'/error'} element={<Error/>}/>
-
                 <Route path={'/forgot'} element={<ForgotPassword/>}/>
                 <Route path={'/set-new-password/:token'} element={<NewPassword/>}/>
                 <Route path={'/email'} element={<Email/>}/>
-
             </Routes>
 
         </div>

@@ -40,14 +40,14 @@ export const authAPI = {
 }
 export const passwordAPI = {
     forgotPassword(email: string) {
-        return instance.post<SendMessageType>("auth/forgot", {
+        return instance.post<SendMessageType>("/auth/forgot", {
             email,
             from: "test-front-admin <dima.infn@gmail.com>",
-            message: `<div><h1><a href='http://localhost:3000/#/set-new-password/$token$'>change password</h1></div>`,
+            message: `<div><h1><a href='http://localhost:3000/cards#/set-new-password/$token$'>change password</h1></div>`,
         })
     },
     // <a href='http://localhost:3000/#/set-new-password/$token$'>
-    //<a href='https://dyatlovivan.github.io/cards/#/set-new-password/$token$'>
+    //<a href='https://dyatlovivan.github.io/cards#/set-new-password/$token$'>
     newPassword(password: string, token: string) {
         return instance.post<ResponseToNewPassword>("auth/set-new-password", {
             password,

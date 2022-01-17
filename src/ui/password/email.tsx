@@ -4,7 +4,6 @@ import emailImg from"./../../assets/img/email.png"
 
 export const Email = React.memo(() => {
     return (
-
         <div className={s.main}>
             <div className={s.check}>
                 <div className={s.check_body}>

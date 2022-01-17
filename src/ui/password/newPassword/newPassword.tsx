@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import s from "./newPassword.module.css";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../../bll/store";
 import {sendNewPasswordTC} from "../../../bll/password/newPasswordReducer";
@@ -9,6 +9,7 @@ import {Login} from "../../auth/login/login";
 export const NewPassword = React.memo(() => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const isSend = useSelector<RootStoreType, boolean>((state) => state.NewPassword.isSend)
     const {token} = useParams<"token">()
 
@@ -26,7 +27,7 @@ export const NewPassword = React.memo(() => {
         if (token) dispatch(sendNewPasswordTC(valueInput, token))
     };
 
-    if (isSend) return <Login/>;
+    if (isSend) navigate('/login');
 
     return (
         <div className={s.main}>
