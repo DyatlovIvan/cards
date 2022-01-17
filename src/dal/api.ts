@@ -34,7 +34,7 @@ export const authAPI = {
     },
     me(){
         return instance.post('/auth/me',{})
-    }
+    },
 
 }
 
