@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
+import { Pagination } from 'antd';
 import {CardType, createCards, getCards} from "../../bll/cardsReducer";
 import {Card} from "./card";
 import {SuperButton} from "../components/SuperButton/SuperButton";
 import s from './cards.module.css'
 import {SuperInputText} from "../components/SuperInput/SuperInputText";
-
-import 'antd/dist/antd.css';
-import { Pagination } from 'antd';
 
 
 export const Cards = () => {

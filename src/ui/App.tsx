@@ -32,15 +32,16 @@ const App = () => {
         <div className="App">
             <Header/>
             <Routes>
-                <Route path={'/login'} element={<Login/>}/>
-                <Route path={'/register'} element={<Register/>}/>
-                <Route path={'/profile'} element={<Profile/>}/>
-                <Route path={'/error'} element={<Error/>}/>
-                <Route path={'/forgot'} element={<ForgotPassword/>}/>
-                <Route path={'/set-new-password/:token'} element={<NewPassword/>}/>
-                <Route path={'/email'} element={<Email/>}/>
-                <Route path={'/packs'} element={<Packs/>}/>
-                <Route path={'/cards/:id?'} element={<Cards/>}/>
+                <Route path={'login'} element={<Login/>}/>
+                <Route path={'register'} element={<Register/>}/>
+                <Route path={'profile'} element={<Profile/>}/>
+                <Route path={'error'} element={<Error/>}/>
+                <Route path={'forgot'} element={<ForgotPassword/>}/>
+                <Route path={'set-new-password/:token'} element={<NewPassword/>}/>
+                <Route path={'email'} element={<Email/>}/>
+                <Route path={'packs'} element={<Packs/>}/>
+                {/*<Route path={'cards'} element={<Cards/>}/>*/}
+                <Route path={'cards/:id'} element={<Cards/>}/>
             </Routes>
 
         </div>
