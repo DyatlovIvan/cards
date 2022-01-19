@@ -1,7 +1,8 @@
 import {Dispatch} from "redux";
-import {cardsAPI} from "../dal/api";
+import {CardParamsType, cardsAPI} from "../dal/api";
 import {handlerAppError} from "./helpers/helpers";
 import {setAppStatus} from "./AppReducer";
+import {AppThunk} from "./store";
 
 export type CardType = {
     answer: string
@@ -57,7 +58,7 @@ const initialState: InitialStateType = {
 export const CardsReducer = (state: InitialStateType = initialState, action: ActionCardsType): InitialStateType => {
     switch (action.type) {
         case 'SET_CARDS': {
-            return {...state, cards:action.cards}
+            return {...state, cards: action.cards}
         }
 
         default:
@@ -75,6 +76,15 @@ export const getCards = (cardsPack_id: string) => async (dispatch: Dispatch) => 
         const res = await cardsAPI.getCards(cardsPack_id)
         dispatch(setCards(res.data.cards))
         dispatch(setAppStatus('failed'))
+    } catch (error) {
+        handlerAppError(error, dispatch)
+    }
+}
+
+export const createCards = (cardsPack_id: string, card: CardParamsType): AppThunk => async (dispatch) => {
+    try {
+        await cardsAPI.addCards(card)
+        dispatch(getCards(cardsPack_id))
     } catch (error) {
         handlerAppError(error, dispatch)
     }
