@@ -40,7 +40,7 @@ const App = () => {
                 <Route path={'/set-new-password/:token'} element={<NewPassword/>}/>
                 <Route path={'/email'} element={<Email/>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
-                <Route path={'/cards'} element={<Cards/>}/>
+                <Route path={'/cards/:id?'} element={<Cards/>}/>
             </Routes>
 
         </div>

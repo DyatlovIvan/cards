@@ -16,30 +16,13 @@ type PackType = {
     disabled:boolean
     deletePackHandler:(id:string)=>void
     updatePackHandler:(id:string)=>void
+    learnHandler:(id:string)=>void
 }
 export const Pack = (props: PackType) => {
 
     const userId = useSelector<RootStoreType,string>(state => state.Profile._id)
     const lastUpdated = dataHandler(props.lastUpdated)
 
-    const columns = [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-        },
-        {
-            title: 'Cards',
-            dataIndex: 'cards',
-        },
-        {
-            title: 'Updated',
-            dataIndex: 'updated',
-        },
-        {
-            title: 'Crea',
-            dataIndex: 'updated',
-        }
-    ];
     return (
         <div>
             <span> {props.name}</span>
@@ -60,6 +43,7 @@ export const Pack = (props: PackType) => {
 
             <SuperButton className={style.button}
                          disabled={props.disabled}
+                         onClick={()=>props.learnHandler(props.id)}
                          value={'Learn'}/>
         </div>
     )

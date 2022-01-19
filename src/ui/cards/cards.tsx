@@ -6,6 +6,8 @@ import {Card} from "./card";
 import {SuperButton} from "../components/SuperButton/SuperButton";
 import s from './cards.module.css'
 import {SuperInputText} from "../components/SuperInput/SuperInputText";
+import 'antd/dist/antd.css';
+import { Pagination } from 'antd';
 
 
 export const Cards = () => {
@@ -13,6 +15,9 @@ export const Cards = () => {
     useEffect(() => {
         dispatch(getCards('5faf6731f343150004f08b1f'))
     }, [])
+    const [minValue,setMinValue]= useState<number>(0) //
+    const [maxValue,setMaxValue]= useState<number>(5) //
+
 
     const [showModal, setShowModal] = useState<boolean>(false)
     const [question, setQuestion] = useState<string>('')
@@ -32,6 +37,16 @@ export const Cards = () => {
     const cards = useSelector<RootStoreType, CardType[]>(state => state.Cards.cards)
     const card = cards.map(c => <Card key={c._id} question={c.question} answer={c.answer} grade={c.grade}
                                       updated={c.updated}/>)
+
+    const handleChange = (value:number) => {
+        if (value <= 1) {
+            setMinValue(0)
+            setMaxValue(5)
+        } else {
+            setMinValue(maxValue)
+            setMaxValue(value * 5)
+        }
+    }
     return (
         <div className={s.cards}>
             <header className={s.header}>
@@ -51,6 +66,11 @@ export const Cards = () => {
                 <SuperInputText value={answer} onChangeText={setAnswer} placeholder={'Answer'}/>
                 <SuperButton onClick={onHandleSubmit} value={'Save'}/>
             </div>}
+            <Pagination
+                defaultCurrent={1}
+                defaultPageSize={5}
+                onChange={handleChange}
+                total={10} />
         </div>
     );
 };
