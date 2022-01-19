@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import React, {useEffect, useState} from "react";
 import {cardPacksType, createPack, deletePack, getPacks, updatePack} from "../../bll/packsReducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -5,15 +6,47 @@ import {RootStoreType} from "../../bll/store";
 import {SuperCheckbox} from "../components/SuperCheckbox/SuperCheckbox";
 import {Pack} from "./pack";
 import {RequestStatusType} from "../../bll/AppReducer";
-
+import {useNavigate} from "react-router-dom";
+import 'antd/dist/antd.css';
+import {Table} from 'antd';
 
 
 export const Packs = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [myPacks, setMyPacks] = useState<boolean>(false)
     const packs = useSelector<RootStoreType, Array<cardPacksType>>(state => state.Packs.cardPacks)
     const userId = useSelector<RootStoreType, string>(state => state.Profile._id)
     const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
+
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name'
+        },
+        {
+            title: 'Cards count',
+            dataIndex: 'cardsCount',
+            key: 'cardsCount',
+        },
+        {
+            title: 'LastUpdated',
+            dataIndex: 'updated',
+            key: 'updated',
+        },
+        {
+            title: 'CreatedBy',
+            dataIndex: 'user_name',
+            key: 'user_name',
+        },
+        {
+            title: 'Actions',
+            dataIndex: 'actions',
+            key: 'actions',
+        }
+    ]
+
     const disabled = status === 'loading';
     const packName = ''
     const min = 0
@@ -23,7 +56,7 @@ export const Packs = () => {
     const pageCount = 10
     const user_id = myPacks ? userId : ''
 
-    const params ={
+    const params = {
         packName, min,
         max, sortPacks,
         page, pageCount,
@@ -37,20 +70,24 @@ export const Packs = () => {
         setMyPacks(!myPacks)
     }
     const AddNewPackHandler = () => {
-        dispatch(createPack({name: 'TEXT'},params))
+        dispatch(createPack({name: 'TEXT'}, params))
     }
-    const deletePackHandler = (id:string)=> {
+    const deletePackHandler = (id: string) => {
         dispatch(deletePack(id, params))
     }
 
-    const updatePackHandler = (id:string)=> {
-        dispatch(updatePack({_id:id,name:'newTest'}, {
+    const updatePackHandler = (id: string) => {
+        dispatch(updatePack({_id: id, name: 'newTest'}, {
             packName, min,
             max, sortPacks,
             page, pageCount,
             user_id
         }))
     }
+    const learnHandler = (id: string) => {
+        navigate(`/cards/${id}`)
+    }
+
     return (
         <div>
             <SuperCheckbox onChangeChecked={showOnlyMyPacks}
@@ -67,10 +104,12 @@ export const Packs = () => {
                       lastUpdated={el.updated}
                       createdBy={el.user_name}
                       packUserId={el.user_id}
-                      disabled ={disabled}
-                      deletePackHandler = {deletePackHandler}
-                      updatePackHandler = {updatePackHandler}/>
+                      disabled={disabled}
+                      deletePackHandler={deletePackHandler}
+                      updatePackHandler={updatePackHandler}
+                      learnHandler={learnHandler}/>
             )}
+
         </div>
     )
 
