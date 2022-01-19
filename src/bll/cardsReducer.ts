@@ -7,7 +7,7 @@ import {AppThunk} from "./store";
 export type CardType = {
     answer: string
     question: string
-    cardsPack_id: string
+    cardsPack_id: string | undefined
     grade: number
     rating: number
     shots: number
@@ -68,9 +68,8 @@ export const CardsReducer = (state: InitialStateType = initialState, action: Act
 
 export const setCards = (cards: CardType[]) => ({type: 'SET_CARDS', cards} as const);
 type SetCardsType = ReturnType<typeof setCards>
-const cardsPack_id = '5faf6731f343150004f08b1f'
 
-export const getCards = (cardsPack_id: string) => async (dispatch: Dispatch) => {
+export const getCards = (cardsPack_id: string | undefined) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatus('loading'))
         const res = await cardsAPI.getCards(cardsPack_id)
@@ -81,7 +80,7 @@ export const getCards = (cardsPack_id: string) => async (dispatch: Dispatch) => 
     }
 }
 
-export const createCards = (cardsPack_id: string, card: CardParamsType): AppThunk => async (dispatch) => {
+export const createCards = (cardsPack_id: string| undefined, card: CardParamsType): AppThunk => async (dispatch) => {
     try {
         await cardsAPI.addCards(card)
         dispatch(getCards(cardsPack_id))

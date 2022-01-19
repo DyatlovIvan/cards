@@ -62,7 +62,7 @@ export const packsAPI = {
 }
 
 export const cardsAPI = {
-    getCards(cardsPack_id: string) {
+    getCards(cardsPack_id: string | undefined) {
         return instance.get('cards/card', {params: {cardsPack_id}})
     },
     addCards(card: CardParamsType) {
@@ -71,7 +71,7 @@ export const cardsAPI = {
 }
 
 export type CardParamsType = {
-    cardsPack_id: string
+    cardsPack_id: string | undefined
     question: "no question" | string // если не отправить будет таким
     answer: "no answer" | string  // если не отправить будет таким
     grade?: number // 0..5, не обязателен
