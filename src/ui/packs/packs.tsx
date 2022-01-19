@@ -6,11 +6,18 @@ import {SuperCheckbox} from "../components/SuperCheckbox/SuperCheckbox";
 import {Pack} from "./pack";
 import {RequestStatusType} from "../../bll/AppReducer";
 
+import 'antd/dist/antd.css';
+import { Pagination } from 'antd';
+
 
 
 export const Packs = () => {
     const dispatch = useDispatch()
     const [myPacks, setMyPacks] = useState<boolean>(false)
+
+    const [minValue,setMinValue]= useState<number>(0) //
+    const [maxValue,setMaxValue]= useState<number>(5) //
+
     const packs = useSelector<RootStoreType, Array<cardPacksType>>(state => state.Packs.cardPacks)
     const userId = useSelector<RootStoreType, string>(state => state.Profile._id)
     const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
@@ -51,6 +58,15 @@ export const Packs = () => {
             user_id
         }))
     }
+   const handleChange = (value:number) => {
+        if (value <= 1) {
+            setMinValue(0)
+            setMaxValue(5)
+        } else {
+            setMinValue(maxValue)
+            setMaxValue(value * 5)
+        }
+    }
     return (
         <div>
             <SuperCheckbox onChangeChecked={showOnlyMyPacks}
@@ -59,7 +75,8 @@ export const Packs = () => {
                 my packs
             </SuperCheckbox>
             <button onClick={AddNewPackHandler}>Add new pack</button>
-            {packs.map(el =>
+            {packs && packs.length > 0 &&
+                packs.slice(minValue, maxValue).map(el =>
                 <Pack key={el._id}
                       id={el._id}
                       name={el.name}
@@ -71,7 +88,14 @@ export const Packs = () => {
                       deletePackHandler = {deletePackHandler}
                       updatePackHandler = {updatePackHandler}/>
             )}
+
+            <Pagination
+                defaultCurrent={1}
+                defaultPageSize={5}
+                onChange={handleChange}
+                total={pageCount} />
+
         </div>
     )
-
 }
+
