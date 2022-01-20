@@ -1,5 +1,82 @@
-.button{
-   width: 70px;
-    height: 20px;
-   font-size: 14px;
+.packs {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.dashboard {
+    margin-right: 20px;
+    flex-basis: 13%;
+}
+
+.line {
+    border-left: 1px solid #1890ff;
+    height: 100vh;
+}
+
+.table {
+    margin-left: 20px;
+    flex-basis: 83%;
+}
+
+.pagination {
+    display: flex;
+    flex-direction:row;
+    flex-wrap:wrap-reverse;
+    justify-content:center;
+
+
+}
+
+.button {
+    border-radius: 2px!important;
+    width: 50px;
+    padding: 5px;
+    height: 24px;
+    font-size: 14px;
+}
+
+.myPacksLabelSwitch {
+    font-size: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.slider {
+    width: 230px;
+    margin-left: 12px;
+}
+
+.addNewPackButton {
+    width: 230px;
+    margin-left: 10px;
+}
+.pack{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.cellName{
+    margin-left: 24px;
+    width: 100px;
+
+
+}
+.cardsCount{
+    display: flex;
+    width: 20px;
+}
+
+.lastUpdated{
+    width: 64px;
+}
+
+.createdBy{
+    width: 200px;
+}
+
+.buttons{
+    width: 300px;
+    display: flex;
+    justify-content: flex-end;
 }
