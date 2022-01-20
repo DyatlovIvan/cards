@@ -47,18 +47,18 @@ export const Cards = () => {
     }
 
     //SearchByName
-    const [searchValue, setSearchValue] = useState<string>('')
-    const filterNamePacks = cards.filter(cards => {
-        return cards.question.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-    })
+    // const [searchValue, setSearchValue] = useState<string>('')
+    // const filterNamePacks = cards.filter(cards => {
+    //     return cards.question.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+    // })
 
-    const card = filterNamePacks && filterNamePacks.length > 0 &&
-        filterNamePacks.slice(minValue, maxValue).map(c => <Card key={c._id} question={c.question} answer={c.answer} grade={c.grade} updated={c.updated}/>)
+    const card = cards && cards.length > 0 &&
+        cards.slice(minValue, maxValue).map(c => <Card key={c._id} question={c.question} answer={c.answer} grade={c.grade} updated={c.updated}/>)
 
     return (
         <div className={s.cards}>
             <header className={s.header}>
-                <SearchByName setSearchValue={setSearchValue}/>
+                {/*<SearchByName setSearchValue={setSearchValue}/>*/}
                 <ul className={s.header_list}>
                     <li className={s.header_item}>question</li>
                     <li>answer</li>

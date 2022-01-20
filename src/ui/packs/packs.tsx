@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {cardPacksType, createPack, deletePack, getPacks, updatePack} from "../../bll/packsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
@@ -24,6 +24,7 @@ export const Packs = () => {
     const packs = useSelector<RootStoreType, Array<cardPacksType>>(state => state.Packs.cardPacks)
     const userId = useSelector<RootStoreType, string>(state => state.Profile._id)
     const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
+
 
     const columns = [
         {
@@ -54,12 +55,12 @@ export const Packs = () => {
     ]
 
     const disabled = status === 'loading';
-    const packName = ''
+    const packName = searchValue
     const min = 0
     const max = 9
     const sortPacks = 0
     const page = 1
-    const pageCount = 10
+    const pageCount = 50
     const user_id = myPacks ? userId : ''
 
     const params = {
@@ -70,7 +71,7 @@ export const Packs = () => {
     }
     useEffect(() => {
         dispatch(getPacks(params))
-    }, [myPacks])
+    }, [myPacks,searchValue])
 
     const showOnlyMyPacks = () => {
         setMyPacks(!myPacks)
@@ -104,30 +105,20 @@ export const Packs = () => {
         }
     }
     //SearchByName
-    const filterNamePacks = packs.filter(packs => {
-        return packs.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-    })
-
+    const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.target.value)
+    }
     return (
         <div>
-            <SearchByName setSearchValue={setSearchValue}/>
-            {/*<Space direction="vertical">*/}
-            {/*    <Search*/}
-            {/*        placeholder="input search text"*/}
-            {/*        onChange={e => setSearchValue(e.target.value)}*/}
-            {/*        enterButton*/}
-            {/*        allowClear // чистка поля*/}
-            {/*        size="large" // размер*/}
-            {/*    />*/}
-            {/*</Space>*/}
+            <SearchByName onChangeSearch={onChangeSearch}/>
             <SuperCheckbox onChangeChecked={showOnlyMyPacks}
                            disabled={false}
                            checked={myPacks}>
                 my packs
             </SuperCheckbox>
             <button onClick={AddNewPackHandler}>Add new pack</button>
-            {filterNamePacks && filterNamePacks.length > 0 &&
-                filterNamePacks.slice(minValue, maxValue).map(el =>
+            {packs && packs.length > 0 &&
+                packs.slice(minValue, maxValue).map(el =>
                     <Pack key={el._id}
                           id={el._id}
                           name={el.name}

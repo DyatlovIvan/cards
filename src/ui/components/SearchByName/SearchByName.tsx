@@ -1,23 +1,22 @@
-import React, {ChangeEvent, } from 'react';
-import {Input} from "antd";
+import React, {ChangeEvent, useState,} from 'react';
 import s from './SearchByName.module.css'
+import {Input} from 'antd';
+import {useDispatch} from "react-redux";
+import {getPacks} from "../../../bll/packsReducer";
 
 type SearchByNameType = {
-    setSearchValue: (e:string) => void
+    onChangeSearch:(e: ChangeEvent<HTMLInputElement>)=>void
 }
 
-const SearchByName = ({setSearchValue}:SearchByNameType) => {
-    const onChangeSearch = (e:ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(e.target.value)
-    }
+const SearchByName = ({onChangeSearch}: SearchByNameType) => {
     return (
-            <Input
-                className={s.input}
-                placeholder="Search"
-                onChange={onChangeSearch}
-                allowClear // чистка поля
-                size="large" // размер
-            />
+        <Input
+            className={s.input}
+            placeholder="Search"
+            onChange={onChangeSearch}
+            allowClear // чистка поля
+            size="large" // размер
+        />
     );
 };
 
