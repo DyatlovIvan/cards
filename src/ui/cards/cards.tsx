@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
-import { Pagination } from 'antd';
+import { Pagination , Input, Space} from 'antd';
 import {CardType, createCards, getCards} from "../../bll/cardsReducer";
 import {Card} from "./card";
 import {SuperButton} from "../components/SuperButton/SuperButton";
 import s from './cards.module.css'
 import {SuperInputText} from "../components/SuperInput/SuperInputText";
+import SearchByName from "../components/SearchByName/SearchByName";
 
 
 export const Cards = () => {
@@ -14,13 +15,18 @@ export const Cards = () => {
     useEffect(() => {
         dispatch(getCards('5faf6731f343150004f08b1f'))
     }, [])
+    //pagination
     const [minValue,setMinValue]= useState<number>(0) //
     const [maxValue,setMaxValue]= useState<number>(5) //
+    //SearchByName
+
 
 
     const [showModal, setShowModal] = useState<boolean>(false)
     const [question, setQuestion] = useState<string>('')
     const [answer, setAnswer] = useState<string>('')
+
+    const cards = useSelector<RootStoreType, CardType[]>(state => state.Cards.cards)
 
     const onHandlerShow = () => {
         setShowModal(true)
@@ -32,10 +38,7 @@ export const Cards = () => {
         dispatch(createCards(cardsPack_id,{cardsPack_id, question, answer}))
         setShowModal(false)
     }
-
-    const cards = useSelector<RootStoreType, CardType[]>(state => state.Cards.cards)
-    const card = cards && cards.length > 0 &&
-        cards.slice(minValue, maxValue).map(c => <Card key={c._id} question={c.question} answer={c.answer} grade={c.grade} updated={c.updated}/>)
+   //pagination
     const handleChange = (value:number) => {
         if (value <= 1) {
             setMinValue(0)
@@ -45,9 +48,20 @@ export const Cards = () => {
             setMaxValue(value * 5)
         }
     }
+
+    //SearchByName
+    const [searchValue, setSearchValue] = useState<string>('')
+    const filterNamePacks = cards.filter(cards => {
+        return cards.question.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+    })
+
+    const card = filterNamePacks && filterNamePacks.length > 0 &&
+        filterNamePacks.slice(minValue, maxValue).map(c => <Card key={c._id} question={c.question} answer={c.answer} grade={c.grade} updated={c.updated}/>)
+
     return (
         <div className={s.cards}>
             <header className={s.header}>
+                <SearchByName setSearchValue={setSearchValue}/>
                 <ul className={s.header_list}>
                     <li className={s.header_item}>question</li>
                     <li>answer</li>
