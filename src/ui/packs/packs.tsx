@@ -7,24 +7,20 @@ import {Pack} from "./pack";
 import {RequestStatusType} from "../../bll/AppReducer";
 import {useNavigate} from "react-router-dom";
 import 'antd/dist/antd.css';
-import {Table, Pagination, Input, Space} from 'antd';
+import {Table, Pagination} from 'antd';
 import SearchByName from "../components/SearchByName/SearchByName";
 
 
 export const Packs = () => {
 
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [myPacks, setMyPacks] = useState<boolean>(false)
-
     //pagination
     const [minValue, setMinValue] = useState<number>(0) //
     const [maxValue, setMaxValue] = useState<number>(8) //
-
     //SearchByName
     const [searchValue, setSearchValue] = useState<string>('')
-
     const packs = useSelector<RootStoreType, Array<cardPacksType>>(state => state.Packs.cardPacks)
     const userId = useSelector<RootStoreType, string>(state => state.Profile._id)
     const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
@@ -97,7 +93,6 @@ export const Packs = () => {
     const learnHandler = (id: string) => {
         navigate(`/cards/${id}`)
     }
-
     //pagination
     const handleChange = (value: number) => {
         if (value <= 1) {
@@ -108,7 +103,6 @@ export const Packs = () => {
             setMaxValue(value * 8)
         }
     }
-
     //SearchByName
     const filterNamePacks = packs.filter(packs => {
         return packs.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())

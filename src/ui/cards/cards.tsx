@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
-import { Pagination , Input, Space} from 'antd';
+import { Pagination} from 'antd';
 import {CardType, createCards, getCards} from "../../bll/cardsReducer";
 import {Card} from "./card";
 import {SuperButton} from "../components/SuperButton/SuperButton";
@@ -18,9 +18,6 @@ export const Cards = () => {
     //pagination
     const [minValue,setMinValue]= useState<number>(0) //
     const [maxValue,setMaxValue]= useState<number>(5) //
-    //SearchByName
-
-
 
     const [showModal, setShowModal] = useState<boolean>(false)
     const [question, setQuestion] = useState<string>('')
