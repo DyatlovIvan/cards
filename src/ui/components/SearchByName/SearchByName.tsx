@@ -1,5 +1,5 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Input, Space} from "antd";
+import React, {ChangeEvent, } from 'react';
+import {Input} from "antd";
 import s from './SearchByName.module.css'
 
 type SearchByNameType = {
