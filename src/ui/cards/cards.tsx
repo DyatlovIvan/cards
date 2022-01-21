@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
 import { Pagination} from 'antd';
@@ -12,16 +12,20 @@ import SearchByName from "../components/SearchByName/SearchByName";
 
 export const Cards = () => {
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getCards('5faf6731f343150004f08b1f'))
-    }, [])
+
     //pagination
     const [minValue,setMinValue]= useState<number>(0) //
     const [maxValue,setMaxValue]= useState<number>(5) //
 
+    const [searchValue, setSearchValue] = useState<string>('')
+
     const [showModal, setShowModal] = useState<boolean>(false)
     const [question, setQuestion] = useState<string>('')
     const [answer, setAnswer] = useState<string>('')
+
+    useEffect(() => {
+        dispatch(getCards({cardsPack_id:'5faf6731f343150004f08b1f',cardQuestion: searchValue}))
+    }, [searchValue])
 
     const cards = useSelector<RootStoreType, CardType[]>(state => state.Cards.cards)
 
@@ -32,7 +36,7 @@ export const Cards = () => {
     const cardsPack_id = '5faf6731f343150004f08b1f'
 
     const onHandleSubmit = () => {
-        dispatch(createCards(cardsPack_id,{cardsPack_id, question, answer}))
+        dispatch(createCards({cardsPack_id},{cardsPack_id, question, answer}))
         setShowModal(false)
     }
    //pagination
@@ -47,10 +51,9 @@ export const Cards = () => {
     }
 
     //SearchByName
-    // const [searchValue, setSearchValue] = useState<string>('')
-    // const filterNamePacks = cards.filter(cards => {
-    //     return cards.question.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
-    // })
+    const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.target.value)
+    }
 
     const card = cards && cards.length > 0 &&
         cards.slice(minValue, maxValue).map(c => <Card key={c._id} question={c.question} answer={c.answer} grade={c.grade} updated={c.updated}/>)
@@ -58,6 +61,7 @@ export const Cards = () => {
     return (
         <div className={s.cards}>
             <header className={s.header}>
+                <SearchByName onChangeSearch={onChangeSearch}/>
                 {/*<SearchByName setSearchValue={setSearchValue}/>*/}
                 <ul className={s.header_list}>
                     <li className={s.header_item}>question</li>
