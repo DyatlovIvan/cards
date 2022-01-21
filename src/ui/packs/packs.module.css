@@ -10,7 +10,7 @@
 }
 
 .line {
-    border-left: 1px solid #1890ff;
+    border-left: 2px solid #1890ff;
     height: 100vh;
 }
 
@@ -30,12 +30,19 @@
 
 .button {
     border-radius: 2px!important;
-    width: 50px;
+    width: 80px;
     padding: 5px;
     height: 24px;
     font-size: 14px;
+    margin: 3px;
 }
 
+.mainColor{
+    background-color:rgb(224, 224, 224);
+}
+.secondColor{
+    background-color: white;
+}
 .myPacksLabelSwitch {
     font-size: 20px;
     margin-right: 10px;

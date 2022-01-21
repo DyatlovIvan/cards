@@ -23,7 +23,7 @@ export const Packs = () => {
     const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
     const disabled = status === 'loading';
     const user_id = myPacks ? userId : ''
-    const pageCount = 20
+    const pageCount = 21
     const packName = ''
     const sortPacks = 0
 
@@ -48,12 +48,7 @@ export const Packs = () => {
     }
 
     const updatePackHandler = (id: string) => {
-        dispatch(updatePack({_id: id, name: 'newTest'}, {
-            packName, min,
-            max, sortPacks,
-            page, pageCount,
-            user_id
-        }))
+        dispatch(updatePack({_id: id, name: 'newTest'}, params))
     }
     const learnHandler = (id: string) => {
         navigate(`/cards/${id}`)
@@ -68,7 +63,7 @@ export const Packs = () => {
             setMax(value[1])
         }
     }
-    const sendGet = () =>{
+    const sendGet = () => {
         dispatch(createPack({name: 'TEXT'}, params))
     }
     return (
@@ -82,14 +77,17 @@ export const Packs = () => {
                 <Slider className={styles.slider}
                         range value={[min, max]}
                         onChange={sliderHandler}
-                        included={true}/>
+                        included={true}
+                        disabled={disabled}/>
 
-                <Button className={styles.addNewPackButton} type="primary" onClick={AddNewPackHandler}>Add new
-                    pack</Button>
+                <Button className={styles.addNewPackButton} type="primary"
+                        onClick={AddNewPackHandler} disabled={disabled}>
+                    Add new pack
+                </Button>
             </div>
             <div className={styles.line}/>
             <div className={styles.table}>
-                {packs.map(el =>
+                {packs.map((el, index) =>
                     <Pack key={el._id}
                           id={el._id}
                           name={el.name}
@@ -100,14 +98,15 @@ export const Packs = () => {
                           disabled={disabled}
                           deletePackHandler={deletePackHandler}
                           updatePackHandler={updatePackHandler}
-                          learnHandler={learnHandler}/>
+                          learnHandler={learnHandler}
+                          index={index}/>
                 )}
                 <div className={styles.pagination}>
-                <Pagination
-                    total={1000}
-                    current={page}
-                    onChange={(e) => paginationHandler(e)}
-                />
+                    <Pagination
+                        total={100}
+                        current={page}
+                        onChange={(e) => paginationHandler(e)}
+                    />
                 </div>
             </div>
         </div>

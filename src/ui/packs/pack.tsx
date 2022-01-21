@@ -18,6 +18,7 @@ type PackType = {
     deletePackHandler: (id: string) => void
     updatePackHandler: (id: string) => void
     learnHandler: (id: string) => void
+    index:number
 }
 export const Pack = (props: PackType) => {
 
@@ -26,28 +27,28 @@ export const Pack = (props: PackType) => {
 
 
     return (
-        <div className={style.pack}>
+        <div className={`${style.pack} && ${props.index%2===0?style.mainColor:style.secondColor}`}>
             <div className={style.cellName}> {cutString(props.name)}</div>
             <div className={style.cardsCount}> {props.cards}</div>
             <span className={style.lastUpdated}> {lastUpdated}</span>
             <span className={style.createdBy}> {cutString(props.createdBy)}</span>
             <div className={style.buttons}>
                 {userId === props.packUserId &&
-                <SuperButton className={style.button}
-                             disabled={props.disabled}
-                             onClick={() => props.deletePackHandler(props.id)}
-                             value={'Delete'}/>}
+                <Button className={style.button}
+                        type="primary"
+                        disabled={props.disabled}
+                        onClick={() => props.deletePackHandler(props.id)}>Delete</Button>}
 
                 {userId === props.packUserId &&
-                <SuperButton className={style.button}
-                             disabled={props.disabled}
-                             onClick={() => props.updatePackHandler(props.id)}
-                             value={'Edit'}/>}
+                <Button className={style.button}
+                        type="primary"
+                        disabled={props.disabled}
+                        onClick={() => props.updatePackHandler(props.id)}>Edit</Button>}
 
-                <SuperButton className={style.button}
-                             disabled={props.disabled}
-                             onClick={() => props.learnHandler(props.id)}
-                             value={'Learn'}/>
+                <Button className={style.button}
+                        type="primary"
+                        disabled={props.disabled}
+                        onClick={() => props.learnHandler(props.id)}>Learn</Button>
             </div>
         </div>
     )
