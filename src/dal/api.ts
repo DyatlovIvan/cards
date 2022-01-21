@@ -62,26 +62,31 @@ export const packsAPI = {
 }
 
 export const cardsAPI = {
-    getCards(cardsPack_id: string) {
-        return instance.get('cards/card', {params: {cardsPack_id}})
+    getCards(params: GetCardsPackType) {
+        return instance.get('cards/card', {params: params})
     },
     addCards(card: CardParamsType) {
         return instance.post('cards/card', {card})
     }
 }
 
+export type GetCardsPackType = {
+    cardsPack_id?: string
+    cardQuestion?: string
+}
+
 export type CardParamsType = {
-    cardsPack_id: "5eb543f6bea3ad21480f1ee7"
+    cardsPack_id: string
     question: "no question" | string // если не отправить будет таким
     answer: "no answer" | string  // если не отправить будет таким
     grade?: number // 0..5, не обязателен
     shots?: number // не обязателен
     rating?: number// не обязателен
-    answerImg?: "url or base 64" // не обязателен
-    questionImg?: "url or base 64" // не обязателен
-    questionVideo?: "url or base 64" // не обязателен
-    answerVideo?: "url or base 64" // не обязателен
-    type: "card" | string // если не отправить будет таким
+    answerImg?: "" // не обязателен
+    questionImg?: "" // не обязателен
+    questionVideo?: "" // не обязателен
+    answerVideo?: "" // не обязателен
+    type?: "card" | string // если не отправить будет таким
 }
 
 type SendMessageType = {
