@@ -75,6 +75,7 @@ export const Packs = () => {
     return (
         <div className={styles.packs}>
             <div className={styles.dashboard}>
+                <SearchByName onChangeSearch={onChangeSearch}/>
                 <div>
                     <label className={styles.myPacksLabelSwitch}>Show only my packs</label>
                     <Switch checked={myPacks} onChange={showOnlyMyPacks}/>
@@ -92,7 +93,6 @@ export const Packs = () => {
                 </Button>
             </div>
             <div className={styles.line}/>
-            <SearchByName onChangeSearch={onChangeSearch}/>
             <div className={styles.table}>
                 {packs.map((el, index) =>
                     <Pack key={el._id}

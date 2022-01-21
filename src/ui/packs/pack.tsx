@@ -47,6 +47,7 @@ export const Pack = (props: PackType) => {
                         onClick={() => props.updatePackHandler(props.id)}>Edit</Button>}
 
                 <Button className={style.button}
+                        type="primary"
                         disabled={props.disabled}
                         onClick={() => props.learnHandler(props.id)}
                         value={'Learn'}>Learn</Button>
