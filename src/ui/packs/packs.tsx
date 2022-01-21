@@ -2,65 +2,30 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import {cardPacksType, createPack, deletePack, getPacks, updatePack} from "../../bll/packsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
-import {SuperCheckbox} from "../components/SuperCheckbox/SuperCheckbox";
 import {Pack} from "./pack";
 import {RequestStatusType} from "../../bll/AppReducer";
 import {useNavigate} from "react-router-dom";
-import 'antd/dist/antd.css';
-import {Table, Pagination} from 'antd';
 import SearchByName from "../components/SearchByName/SearchByName";
+import 'antd/dist/antd.css';
+import {Pagination, Slider, Switch, Button} from 'antd';
+import styles from './packs.module.css'
 
 
 export const Packs = () => {
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [min, setMin] = useState(0)
+    const [max, setMax] = useState(9)
     const [myPacks, setMyPacks] = useState<boolean>(false)
-    //pagination
-    const [minValue, setMinValue] = useState<number>(0) //
-    const [maxValue, setMaxValue] = useState<number>(8) //
-    //SearchByName
+    const [page, setPage] = useState<number>(1)
     const [searchValue, setSearchValue] = useState<string>('')
     const packs = useSelector<RootStoreType, Array<cardPacksType>>(state => state.Packs.cardPacks)
     const userId = useSelector<RootStoreType, string>(state => state.Profile._id)
     const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
-
-
-    const columns = [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name'
-        },
-        {
-            title: 'Cards count',
-            dataIndex: 'cardsCount',
-            key: 'cardsCount',
-        },
-        {
-            title: 'LastUpdated',
-            dataIndex: 'updated',
-            key: 'updated',
-        },
-        {
-            title: 'CreatedBy',
-            dataIndex: 'user_name',
-            key: 'user_name',
-        },
-        {
-            title: 'Actions',
-            dataIndex: 'actions',
-            key: 'actions',
-        }
-    ]
-
     const disabled = status === 'loading';
     const packName = searchValue
-    const min = 0
-    const max = 9
     const sortPacks = 0
-    const page = 1
-    const pageCount = 50
+    const pageCount = 21
     const user_id = myPacks ? userId : ''
 
     const params = {
@@ -71,7 +36,7 @@ export const Packs = () => {
     }
     useEffect(() => {
         dispatch(getPacks(params))
-    }, [myPacks,searchValue])
+    }, [myPacks, page, min, max, searchValue])
 
     const showOnlyMyPacks = () => {
         setMyPacks(!myPacks)
@@ -84,41 +49,52 @@ export const Packs = () => {
     }
 
     const updatePackHandler = (id: string) => {
-        dispatch(updatePack({_id: id, name: 'newTest'}, {
-            packName, min,
-            max, sortPacks,
-            page, pageCount,
-            user_id
-        }))
+        dispatch(updatePack({_id: id, name: 'newTest'}, params))
     }
     const learnHandler = (id: string) => {
         navigate(`/cards/${id}`)
     }
-    //pagination
-    const handleChange = (value: number) => {
-        if (value <= 1) {
-            setMinValue(0)
-            setMaxValue(8)
-        } else {
-            setMinValue(maxValue)
-            setMaxValue(value * 8)
+
+
+    const paginationHandler = (e: number) => {
+        setPage(e)
+    }
+    const sliderHandler = (value: Array<number>) => {
+        if (value[0] < value[1]) {
+            setMin(value[0])
+            setMax(value[1])
         }
     }
+    // const sendGet = () => {
+    //     dispatch(createPack({name: 'TEXT'}, params))
+    // }
     //SearchByName
     const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value)
     }
     return (
-        <div>
+        <div className={styles.packs}>
+            <div className={styles.dashboard}>
+                <div>
+                    <label className={styles.myPacksLabelSwitch}>Show only my packs</label>
+                    <Switch checked={myPacks} onChange={showOnlyMyPacks}/>
+                </div>
+
+                <Slider className={styles.slider}
+                        range value={[min, max]}
+                        onChange={sliderHandler}
+                        included={true}
+                        disabled={disabled}/>
+
+                <Button className={styles.addNewPackButton} type="primary"
+                        onClick={AddNewPackHandler} disabled={disabled}>
+                    Add new pack
+                </Button>
+            </div>
+            <div className={styles.line}/>
             <SearchByName onChangeSearch={onChangeSearch}/>
-            <SuperCheckbox onChangeChecked={showOnlyMyPacks}
-                           disabled={false}
-                           checked={myPacks}>
-                my packs
-            </SuperCheckbox>
-            <button onClick={AddNewPackHandler}>Add new pack</button>
-            {packs && packs.length > 0 &&
-                packs.slice(minValue, maxValue).map(el =>
+            <div className={styles.table}>
+                {packs.map((el, index) =>
                     <Pack key={el._id}
                           id={el._id}
                           name={el.name}
@@ -129,14 +105,17 @@ export const Packs = () => {
                           disabled={disabled}
                           deletePackHandler={deletePackHandler}
                           updatePackHandler={updatePackHandler}
-                          learnHandler={learnHandler}/>
+                          learnHandler={learnHandler}
+                          index={index}/>
                 )}
-
-            <Pagination
-                defaultCurrent={1}
-                defaultPageSize={8}
-                onChange={handleChange}
-                total={pageCount}/>
+                <div className={styles.pagination}>
+                    <Pagination
+                        total={100}
+                        current={page}
+                        onChange={(e) => paginationHandler(e)}
+                    />
+                </div>
+            </div>
         </div>
     )
 

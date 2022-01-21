@@ -4,47 +4,53 @@ import {RootStoreType} from "../../bll/store";
 import React from "react";
 import {SuperButton} from "../components/SuperButton/SuperButton";
 import style from './packs.module.css'
-import { Table, Button } from 'antd';
+import {Table, Button} from 'antd';
+import {cutString} from "../../bll/helpers/cutString";
 
 type PackType = {
-    id:string
+    id: string
     name: string
     cards: number
     lastUpdated: string
     createdBy: string
-    packUserId:string
-    disabled:boolean
-    deletePackHandler:(id:string)=>void
-    updatePackHandler:(id:string)=>void
-    learnHandler:(id:string)=>void
+    packUserId: string
+    disabled: boolean
+    deletePackHandler: (id: string) => void
+    updatePackHandler: (id: string) => void
+    learnHandler: (id: string) => void
+    index: number
 }
 export const Pack = (props: PackType) => {
 
-    const userId = useSelector<RootStoreType,string>(state => state.Profile._id)
+    const userId = useSelector<RootStoreType, string>(state => state.Profile._id)
     const lastUpdated = dataHandler(props.lastUpdated)
 
+
     return (
-        <div>
-            <span> {props.name}</span>
-            <span> {props.cards}</span>
-            <span> {lastUpdated}</span>
-            <span> {props.createdBy}</span>
-            {userId===props.packUserId &&
-            <SuperButton className={style.button}
+        <div className={`${style.pack} && ${props.index % 2 === 0 ? style.mainColor : style.secondColor}`}>
+            <div className={style.cellName}> {cutString(props.name)}</div>
+            <div className={style.cardsCount}> {props.cards}</div>
+            <span className={style.lastUpdated}> {lastUpdated}</span>
+            <span className={style.createdBy}> {cutString(props.createdBy)}</span>
+            <div className={style.buttons}>
+                {userId === props.packUserId &&
+
+                <Button className={style.button}
+                        type="primary"
                         disabled={props.disabled}
-                         onClick={()=>props.deletePackHandler(props.id)}
-                         value={'Delete'}/>}
+                        onClick={() => props.deletePackHandler(props.id)}>Delete</Button>}
 
-            {userId===props.packUserId &&
-            <SuperButton className={style.button}
-                         disabled={props.disabled}
-                         onClick={()=>props.updatePackHandler(props.id)}
-                         value={'Edit'}/>}
+                {userId === props.packUserId &&
+                <Button className={style.button}
+                        type="primary"
+                        disabled={props.disabled}
+                        onClick={() => props.updatePackHandler(props.id)}>Edit</Button>}
 
-            <SuperButton className={style.button}
-                         disabled={props.disabled}
-                         onClick={()=>props.learnHandler(props.id)}
-                         value={'Learn'}/>
+                <Button className={style.button}
+                        disabled={props.disabled}
+                        onClick={() => props.learnHandler(props.id)}
+                        value={'Learn'}>Learn</Button>
+            </div>
         </div>
     )
 

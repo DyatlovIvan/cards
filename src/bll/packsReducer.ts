@@ -96,6 +96,7 @@ export const updatePack = (data: UpdatePackModelType, params: getPacksRequestTyp
         }
     }
 
+
 export type cardPacksType = {
     _id: string
     user_id: string
