@@ -82,8 +82,22 @@ export const getCards = (cardsPack_id: string | undefined) => async (dispatch: D
 
 export const createCards = (cardsPack_id: string| undefined, card: CardParamsType): AppThunk => async (dispatch) => {
     try {
+        dispatch(setAppStatus('loading'))
         await cardsAPI.addCards(card)
-        dispatch(getCards(cardsPack_id))
+        await dispatch(getCards(cardsPack_id))
+        dispatch(setAppStatus('succeeded'))
+
+    } catch (error) {
+        handlerAppError(error, dispatch)
+        dispatch(setAppStatus('failed'))
+
+    }
+}
+
+export const deleteCard = (id: string | undefined): AppThunk => async (dispatch) => {
+    try {
+        await cardsAPI.removeCard(id)
+        await dispatch(getCards(id))
     } catch (error) {
         handlerAppError(error, dispatch)
     }

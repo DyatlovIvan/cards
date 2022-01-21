@@ -67,6 +67,9 @@ export const cardsAPI = {
     },
     addCards(card: CardParamsType) {
         return instance.post('cards/card', {card})
+    },
+    removeCard(id: string | undefined) {
+        return instance.delete('cards/card', {params:{id}})
     }
 }
 

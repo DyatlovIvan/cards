@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
-import {CardType, createCards, getCards} from "../../bll/cardsReducer";
+import {CardType, createCards, deleteCard, getCards} from "../../bll/cardsReducer";
 import {Card} from "./card";
 import {SuperButton} from "../components/SuperButton/SuperButton";
 import s from './cards.module.css'
@@ -33,12 +33,20 @@ export const Cards = () => {
         dispatch(createCards(cardsPack_id, {cardsPack_id, question, answer}))
         setShowModal(false)
     }
+    
+    const onRemoveHandler = () => {
+            dispatch(deleteCard(cardsPack_id))
+    }
 
     const cards = useSelector<RootStoreType, CardType[]>(state => state.Cards.cards)
     const card = cards && cards.length > 0 &&
-        cards.slice(minValue, maxValue).map(c => <Card key={c._id} question={c.question} answer={c.answer}
+        cards.slice(minValue, maxValue).map(c => <Card key={c._id}
+                                                       question={c.question}
+                                                       answer={c.answer}
                                                        grade={c.grade}
-                                                       updated={c.updated}/>)
+                                                       updated={c.updated}
+                                                       onRemoveHandler={onRemoveHandler}
+        />)
 
     const handleChange = (value: number) => {
         if (value <= 1) {
@@ -54,10 +62,10 @@ export const Cards = () => {
             <header className={s.header}>
                 <ul className={s.header_list}>
                     <li className={s.header_item}>question</li>
-                    <li>answer</li>
-                    <li>grade</li>
-                    <li>updated</li>
-                    <li>url</li>
+                    <li className={s.header_item}>answer</li>
+                    <li className={s.header_item}>grade</li>
+                    <li className={s.header_item}>updated</li>
+                    <li className={s.header_item}>url</li>
                     <SuperButton onClick={onHandlerShow} style={{width: '60px'}} value={'add'}/>
                 </ul>
             </header>
