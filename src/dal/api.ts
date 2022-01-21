@@ -67,6 +67,9 @@ export const cardsAPI = {
     },
     addCards(card: CardParamsType) {
         return instance.post('cards/card', {card})
+    },
+    removeCard(id: string | undefined) {
+        return instance.delete('cards/card', {params:{id}})
     }
 }
 
@@ -76,7 +79,7 @@ export type GetCardsPackType = {
 }
 
 export type CardParamsType = {
-    cardsPack_id: string
+    cardsPack_id: string | undefined
     question: "no question" | string // если не отправить будет таким
     answer: "no answer" | string  // если не отправить будет таким
     grade?: number // 0..5, не обязателен

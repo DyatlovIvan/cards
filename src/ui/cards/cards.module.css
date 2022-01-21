@@ -1,9 +1,14 @@
 .cards {
     position: relative;
+    background-color: #FEFEFF;
+    border-radius: 10px;
+    min-height: 70vh;
 }
 
 .header {
     border: 1px solid black;
+    height: 50px;
+    background-color: #ECECF9;
 }
 
 .header_list {
@@ -13,7 +18,8 @@
 }
 
 .header_item {
-
+    width: 150px;
+    padding: 5px;
 }
 
 .card {
@@ -21,8 +27,10 @@
 }
 
 .card_item {
-    width: 140px;
+    width: 150px;
     padding: 5px;
+    border: 1px solid #4a4ebc;
+    overflow-wrap: break-word;
 }
 
 .cards_modal {

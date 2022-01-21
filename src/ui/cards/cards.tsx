@@ -1,17 +1,22 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
-import { Pagination} from 'antd';
-import {CardType, createCards, getCards} from "../../bll/cardsReducer";
+import {CardType, createCards, deleteCard, getCards} from "../../bll/cardsReducer";
 import {Card} from "./card";
 import {SuperButton} from "../components/SuperButton/SuperButton";
 import s from './cards.module.css'
 import {SuperInputText} from "../components/SuperInput/SuperInputText";
 import SearchByName from "../components/SearchByName/SearchByName";
+import 'antd/dist/antd.css';
+import {Pagination} from 'antd';
+import {useParams} from "react-router-dom";
 
 
 export const Cards = () => {
     const dispatch = useDispatch()
+    const params = useParams<'id'>()
+    const cardsPack_id = params.id
+
 
     //pagination
     const [minValue,setMinValue]= useState<number>(0) //
@@ -23,24 +28,35 @@ export const Cards = () => {
     const [question, setQuestion] = useState<string>('')
     const [answer, setAnswer] = useState<string>('')
 
-    useEffect(() => {
-        dispatch(getCards({cardsPack_id:'5faf6731f343150004f08b1f',cardQuestion: searchValue}))
-    }, [searchValue])
-
-    const cards = useSelector<RootStoreType, CardType[]>(state => state.Cards.cards)
-
     const onHandlerShow = () => {
         setShowModal(true)
     }
 
-    const cardsPack_id = '5faf6731f343150004f08b1f'
+    useEffect(() => {
+        dispatch(getCards(cardsPack_id))
+    }, [searchValue])
+
 
     const onHandleSubmit = () => {
-        dispatch(createCards({cardsPack_id},{cardsPack_id, question, answer}))
+        dispatch(createCards(cardsPack_id,{cardsPack_id, question, answer}))
         setShowModal(false)
     }
-   //pagination
-    const handleChange = (value:number) => {
+
+    const onRemoveHandler = () => {
+        dispatch(deleteCard(cardsPack_id))
+    }
+
+    const cards = useSelector<RootStoreType, CardType[]>(state => state.Cards.cards)
+    const card = cards && cards.length > 0 &&
+        cards.slice(minValue, maxValue).map(c => <Card key={c._id}
+                                                       question={c.question}
+                                                       answer={c.answer}
+                                                       grade={c.grade}
+                                                       updated={c.updated}
+                                                       onRemoveHandler={onRemoveHandler}
+        />)
+
+    const handleChange = (value: number) => {
         if (value <= 1) {
             setMinValue(0)
             setMaxValue(5)
@@ -55,9 +71,6 @@ export const Cards = () => {
         setSearchValue(e.target.value)
     }
 
-    const card = cards && cards.length > 0 &&
-        cards.slice(minValue, maxValue).map(c => <Card key={c._id} question={c.question} answer={c.answer} grade={c.grade} updated={c.updated}/>)
-
     return (
         <div className={s.cards}>
             <header className={s.header}>
@@ -65,14 +78,15 @@ export const Cards = () => {
                 {/*<SearchByName setSearchValue={setSearchValue}/>*/}
                 <ul className={s.header_list}>
                     <li className={s.header_item}>question</li>
-                    <li>answer</li>
-                    <li>grade</li>
-                    <li>updated</li>
-                    <li>url</li>
+                    <li className={s.header_item}>answer</li>
+                    <li className={s.header_item}>grade</li>
+                    <li className={s.header_item}>updated</li>
+                    <li className={s.header_item}>url</li>
                     <SuperButton onClick={onHandlerShow} style={{width: '60px'}} value={'add'}/>
                 </ul>
             </header>
             {card}
+
             {showModal && <div className={s.cards_modal}>
                 <h2>Card info</h2>
                 <SuperInputText value={question} onChangeText={setQuestion} placeholder={'Question'}/>
@@ -84,7 +98,6 @@ export const Cards = () => {
                 defaultPageSize={5}
                 onChange={handleChange}
                 total={10} />
-
         </div>
     );
 };
