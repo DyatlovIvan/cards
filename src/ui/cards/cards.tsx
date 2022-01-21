@@ -73,8 +73,8 @@ export const Cards = () => {
 
     return (
         <div className={s.cards}>
+            <SearchByName onChangeSearch={onChangeSearch}/>
             <header className={s.header}>
-                <SearchByName onChangeSearch={onChangeSearch}/>
                 {/*<SearchByName setSearchValue={setSearchValue}/>*/}
                 <ul className={s.header_list}>
                     <li className={s.header_item}>question</li>

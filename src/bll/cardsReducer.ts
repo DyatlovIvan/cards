@@ -80,7 +80,7 @@ export const getCards = (cardsPack_id: string | undefined) => async (dispatch: D
     }
 }
 
-export const createCards = (cardsPack_id: string, card: CardParamsType): AppThunk => async (dispatch) => {
+export const createCards = (cardsPack_id: string | undefined, card: CardParamsType): AppThunk => async (dispatch) => {
     try {
         dispatch(setAppStatus('loading'))
         await cardsAPI.addCards(card)
