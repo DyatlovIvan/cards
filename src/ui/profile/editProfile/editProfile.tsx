@@ -14,7 +14,7 @@ const EditProfile = () => {
                 <div className={s.avatar}>
                     <img className={s.img} src={emailImg} alt=""/>
                     <button className={s.editImg}>
-                        <img className={s.ss} src={editImg} alt=""/>
+                        <img className={s.imgBtnAvatar} src={editImg} alt=""/>
                     </button>
                 </div>
                 <div className={s.forms}>
