@@ -14,6 +14,7 @@ import {isAuth} from "../bll/loginReduser";
 import {Packs} from "./packs/packs";
 import {Email} from "./password/email";
 import {Cards} from "./cards/cards";
+import EditProfile from "./profile/editProfile/editProfile";
 
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
                 <Route path={'email'} element={<Email/>}/>
                 <Route path={'packs'} element={<Packs/>}/>
                 <Route path={'cards/:id'} element={<Cards/>}/>
+                <Route path={'edit-profile'} element={<EditProfile/>}/>
             </Routes>
 
         </div>

@@ -20,6 +20,7 @@ export const Header = () =>{
             <NavLink className={style.link} to={`/forgot`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Repair password</NavLink>
             <NavLink className={style.link} to={`/packs`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Packs</NavLink>
             <NavLink className={style.link} to={`/cards`} style = {(params)=>({color:params.isActive?'coral':'black'})}>Cards</NavLink>
+            <NavLink className={style.link} to={`/edit-profile`} style = {(params)=>({color:params.isActive?'coral':'black'})}>edit-profile</NavLink>
         </div>
     )
 }
