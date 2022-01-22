@@ -10,7 +10,6 @@ import 'antd/dist/antd.css';
 import {Pagination, Slider, Switch, Button} from 'antd';
 import styles from './packs.module.css'
 
-
 export const Packs = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -68,14 +67,11 @@ export const Packs = () => {
     // const sendGet = () => {
     //     dispatch(createPack({name: 'TEXT'}, params))
     // }
-    //SearchByName
-    const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(e.target.value)
-    }
+
     return (
         <div className={styles.packs}>
             <div className={styles.dashboard}>
-                <SearchByName onChangeSearch={onChangeSearch}/>
+                <SearchByName setSearchValue={setSearchValue}/>
                 <div>
                     <label className={styles.myPacksLabelSwitch}>Show only my packs</label>
                     <Switch checked={myPacks} onChange={showOnlyMyPacks}/>

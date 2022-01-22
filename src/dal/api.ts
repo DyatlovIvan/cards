@@ -62,8 +62,8 @@ export const packsAPI = {
 }
 
 export const cardsAPI = {
-    getCards(cardsPack_id: string | undefined) {
-        return instance.get('cards/card', {params: {cardsPack_id}})
+    getCards(params: GetCardsPackType) {
+        return instance.get('cards/card', {params})
     },
     addCards(card: CardParamsType) {
         return instance.post('cards/card', {card})
@@ -74,7 +74,7 @@ export const cardsAPI = {
 }
 
 export type GetCardsPackType = {
-    cardsPack_id?: string
+    cardsPack_id?: string | undefined
     cardQuestion?: string
 }
 

@@ -1,8 +1,8 @@
 import {Dispatch} from "redux";
-import {CardParamsType, cardsAPI} from "../dal/api";
+import {CardParamsType, cardsAPI, GetCardsPackType} from "../dal/api";
 import {handlerAppError} from "./helpers/helpers";
 import {setAppStatus} from "./AppReducer";
-import {AppThunk} from "./store";
+import {AppThunk, RootStoreType} from "./store";
 
 export type CardType = {
     answer: string
@@ -69,10 +69,10 @@ export const CardsReducer = (state: InitialStateType = initialState, action: Act
 export const setCards = (cards: CardType[]) => ({type: 'SET_CARDS', cards} as const);
 type SetCardsType = ReturnType<typeof setCards>
 
-export const getCards = (cardsPack_id: string | undefined) => async (dispatch: Dispatch) => {
+export const getCards = (params: GetCardsPackType) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatus('loading'))
-        const res = await cardsAPI.getCards(cardsPack_id)
+        const res = await cardsAPI.getCards(params)
         dispatch(setCards(res.data.cards))
         dispatch(setAppStatus('failed'))
     } catch (error) {
@@ -80,20 +80,20 @@ export const getCards = (cardsPack_id: string | undefined) => async (dispatch: D
     }
 }
 
-export const createCards = (cardsPack_id: string | undefined, card: CardParamsType): AppThunk => async (dispatch) => {
+export const createCards = (params: GetCardsPackType, card: CardParamsType): AppThunk => async (dispatch) => {
     try {
         dispatch(setAppStatus('loading'))
         await cardsAPI.addCards(card)
-        dispatch(getCards(cardsPack_id))
+        dispatch(getCards(params))
     } catch (error) {
         handlerAppError(error, dispatch)
     }
 }
 
-export const deleteCard = (id: string | undefined): AppThunk => async (dispatch) => {
+export const deleteCard = (id: string | undefined, params: GetCardsPackType): AppThunk => async (dispatch) => {
     try {
         await cardsAPI.removeCard(id)
-        await dispatch(getCards(id))
+        await dispatch(getCards(params))
     } catch (error) {
         handlerAppError(error, dispatch)
     }

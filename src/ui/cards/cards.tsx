@@ -15,12 +15,13 @@ import {useParams} from "react-router-dom";
 export const Cards = () => {
     const dispatch = useDispatch()
     const params = useParams<'id'>()
+    // const {_id} = useParams<'_id'>()
     const cardsPack_id = params.id
 
 
     //pagination
-    const [minValue,setMinValue]= useState<number>(0) //
-    const [maxValue,setMaxValue]= useState<number>(5) //
+    const [minValue, setMinValue] = useState<number>(0) //
+    const [maxValue, setMaxValue] = useState<number>(5) //
 
     const [searchValue, setSearchValue] = useState<string>('')
 
@@ -33,28 +34,29 @@ export const Cards = () => {
     }
 
     useEffect(() => {
-        dispatch(getCards(cardsPack_id))
+        dispatch(getCards({cardsPack_id,cardQuestion: searchValue}))
     }, [searchValue])
 
 
     const onHandleSubmit = () => {
-        dispatch(createCards(cardsPack_id,{cardsPack_id, question, answer}))
+        dispatch(createCards({cardsPack_id}, {cardsPack_id, question, answer}))
         setShowModal(false)
     }
 
     const onRemoveHandler = () => {
-        dispatch(deleteCard(cardsPack_id))
+        dispatch(deleteCard(cardsPack_id, {cardsPack_id}))
     }
 
     const cards = useSelector<RootStoreType, CardType[]>(state => state.Cards.cards)
     const card = cards && cards.length > 0 &&
-        cards.slice(minValue, maxValue).map(c => <Card key={c._id}
-                                                       question={c.question}
-                                                       answer={c.answer}
-                                                       grade={c.grade}
-                                                       updated={c.updated}
-                                                       onRemoveHandler={onRemoveHandler}
-        />)
+        cards.slice(minValue, maxValue)
+            .map(c => <Card key={c._id}
+                            question={c.question}
+                            answer={c.answer}
+                            grade={c.grade}
+                            updated={c.updated}
+                            onRemoveHandler={onRemoveHandler}
+            />)
 
     const handleChange = (value: number) => {
         if (value <= 1) {
@@ -67,15 +69,11 @@ export const Cards = () => {
     }
 
     //SearchByName
-    const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(e.target.value)
-    }
 
     return (
         <div className={s.cards}>
-            <SearchByName onChangeSearch={onChangeSearch}/>
+            <SearchByName setSearchValue={setSearchValue}/>
             <header className={s.header}>
-                {/*<SearchByName setSearchValue={setSearchValue}/>*/}
                 <ul className={s.header_list}>
                     <li className={s.header_item}>question</li>
                     <li className={s.header_item}>answer</li>
@@ -97,7 +95,7 @@ export const Cards = () => {
                 defaultCurrent={1}
                 defaultPageSize={5}
                 onChange={handleChange}
-                total={10} />
+                total={10}/>
         </div>
     );
 };

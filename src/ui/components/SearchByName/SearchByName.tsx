@@ -1,23 +1,24 @@
 import React, {ChangeEvent, useState,} from 'react';
 import s from './SearchByName.module.css'
 import {Input} from 'antd';
-import {useDispatch} from "react-redux";
-import {getPacks} from "../../../bll/packsReducer";
+import debounce from 'lodash/debounce';
 
 type SearchByNameType = {
-    onChangeSearch:(e: ChangeEvent<HTMLInputElement>)=>void
+    setSearchValue:(e:string)=> void
 }
-
-const SearchByName = ({onChangeSearch}: SearchByNameType) => {
+const SearchByName = ({setSearchValue}: SearchByNameType) => {
+    const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.target.value)
+    }
+    const debouncedOnChang = debounce(onChangeSearch,600)
     return (
         <Input
             className={s.input}
             placeholder="Search"
-            onChange={onChangeSearch}
+            onChange={debouncedOnChang}
             allowClear // чистка поля
             size="large" // размер
         />
-    );
-};
-
+    )
+}
 export default SearchByName;
