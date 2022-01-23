@@ -18,8 +18,8 @@ export const Login = () => {
     const isLoggedIn = useSelector<RootStoreType, boolean>(state => state.Login.isLoggedIn)
     const error = useSelector<RootStoreType, string | null>(state => state.App.error)
     const status = useSelector<RootStoreType, RequestStatusType>(state => state.App.status)
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
+    const [email, setEmail] = useState<string>('dyatlovivan92@gmail.com')
+    const [password, setPassword] = useState<string>('12345678')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
     const [inputType, setInputType] = useState<InputType>('password')
     const disabled = status === 'loading';
