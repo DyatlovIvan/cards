@@ -1,17 +1,18 @@
 import axios, {AxiosResponse} from "axios"
 import {cardPacksType} from "../bll/packsReducer";
+import {CardType} from "../bll/cardsReducer";
 
 
-
-const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
-     withCredentials: true
-})
 
 // const instance = axios.create({
-//     baseURL: 'http://localhost:7542/2.0/',
-//     withCredentials: true
+//     baseURL: 'https://neko-back.herokuapp.com/2.0',
+//      withCredentials: true
 // })
+
+const instance = axios.create({
+    baseURL: 'http://localhost:7542/2.0/',
+    withCredentials: true
+})
 
 
 export const authAPI = {
@@ -68,7 +69,7 @@ export const cardsAPI = {
     addCards(card: CardParamsType) {
         return instance.post('cards/card', {card})
     },
-    removeCard(id: string | undefined) {
+    removeCard(id: string| null ) {
         return instance.delete('cards/card', {params:{id}})
     }
 }

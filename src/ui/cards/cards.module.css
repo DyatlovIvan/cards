@@ -2,19 +2,30 @@
     position: relative;
     background-color: #FEFEFF;
     border-radius: 10px;
+    width: 100%;
     min-height: 70vh;
+    padding: 10px;
+    text-align: center;
+}
+
+.table {
+    width: 90%;
+    margin: 0 auto;
 }
 
 .header {
-    border: 1px solid black;
-    height: 50px;
+    min-height: 50px;
     background-color: #ECECF9;
 }
 
 .header_list {
     display: flex;
-    gap: 10px;
     list-style: none;
+    padding: 0;
+    align-items: center;
+    font-family: '-apple-system';
+    font-weight: bold;
+    font-size: 13px;
 }
 
 .header_item {
@@ -26,21 +37,41 @@
     display: flex;
 }
 
+.mainColor {
+    background-color: #ffffff;
+}
+
+.secondColor {
+    background-color: #ECECF9;
+}
+
 .card_item {
     width: 150px;
     padding: 5px;
-    border: 1px solid #4a4ebc;
     overflow-wrap: break-word;
 }
 
-.cards_modal {
-    transition: 5ms;
+.modal {
     width: 420px;
     height: 410px;
     background-color: #F9F9FE;
     text-align: center;
-    position: absolute;
-    top: 0;
-    left: 100px;
+    position: fixed;
+    top: 100px;
+    left: 40%;
     border-radius: 10px;
+    z-index: 20;
+    transition: 5ms;
+}
+
+
+.modal__back {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #7ec1ff;
+    opacity: 40%;
+    z-index: 10;
 }

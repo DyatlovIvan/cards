@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {CardParamsType, cardsAPI} from "../dal/api";
 import {handlerAppError} from "./helpers/helpers";
 import {setAppStatus} from "./AppReducer";
-import {AppThunk} from "./store";
+import {AppThunk, RootStoreType} from "./store";
 
 export type CardType = {
     answer: string
@@ -51,7 +51,7 @@ const initialState: InitialStateType = {
     minGrade: 2.0100984354076568,
     page: 1,
     pageCount: 4,
-    packUserId: "5eecf82a3ed8f700042f1186",
+    packUserId: "",
 }
 
 
@@ -60,6 +60,7 @@ export const CardsReducer = (state: InitialStateType = initialState, action: Act
         case 'SET_CARDS': {
             return {...state, cards: action.cards}
         }
+
 
         default:
             return state
@@ -90,10 +91,10 @@ export const createCards = (cardsPack_id: string | undefined, card: CardParamsTy
     }
 }
 
-export const deleteCard = (id: string | undefined): AppThunk => async (dispatch) => {
+export const deleteCard = (cardsPack_id: string | undefined, _id: string | null): AppThunk => async (dispatch, getState) => {
     try {
-        await cardsAPI.removeCard(id)
-        await dispatch(getCards(id))
+        await cardsAPI.removeCard(_id)
+        await dispatch(getCards(cardsPack_id))
     } catch (error) {
         handlerAppError(error, dispatch)
     }

@@ -1,4 +1,5 @@
 .App {
-
+    width: 1024px;
+    margin: 0 auto;
 }
 .active{font-size: 20px}

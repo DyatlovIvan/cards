@@ -2,9 +2,8 @@ import {dataHandler} from "../../bll/helpers/dataHandler";
 import {useSelector} from "react-redux";
 import {RootStoreType} from "../../bll/store";
 import React from "react";
-import {SuperButton} from "../components/SuperButton/SuperButton";
 import style from './packs.module.css'
-import {Table, Button} from 'antd';
+import {Button} from 'antd';
 import {cutString} from "../../bll/helpers/cutString";
 
 type PackType = {
